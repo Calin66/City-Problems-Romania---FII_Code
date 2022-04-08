@@ -4,7 +4,6 @@ import sgl from "./../images/sigla.png";
 
 const Navbar = () => {
   return (
-    <div id="navbar">
       <div id="navigatie">
         <div id="logo_sigla">
           <img src={sgl} />
@@ -12,8 +11,6 @@ const Navbar = () => {
         </div>
         <button id="sign">Sign up!</button>
       </div>
-      <div id="bara"></div>
-    </div>
   );
 };
 

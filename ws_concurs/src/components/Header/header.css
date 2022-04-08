@@ -8,7 +8,6 @@
     background-color: #E45826;
 }
 
-
 video{
     width: 100%;
     object-fit: cover;
@@ -76,38 +75,57 @@ video{
     cursor:pointer;
 }
 #postari_filtrare{
-    margin: 150px auto;
+    position: absolute;
+    top:100%;
+    margin: 5% 5%;
     width: 90%;
-    height: 1000px;
+    height: fit-content;
     display: grid;
     grid-template-columns: 3fr 1fr;
-    grid-template-rows: 0.4fr 2fr 2fr 2fr;
+    grid-template-rows: 0.1fr 1fr ;
     gap:50px;
     font-size: 40px;
+    grid-auto-flow:row;
 }
+
+#postari{
+    background-color: aquamarine;
+    
+}
+#filtrare{
+    background-color: aqua;
+    grid-column: 2;
+}
+
+
+
+
+
+
+
+
+
+
 @media only screen and (max-width:1100px){
     
     #infoplus{
-        width: 82%;
+       width: 84%;
        top: 50%;
     }
     #button{
         left:65%;
         width: fit-content;
         height: fit-content;
+        padding: 10px 20px;
     }
 }
 @media only screen and (max-height: 550px)and (max-width:1100px) and (orientation: landscape){
-    
     #infoplus{
-        width: 82%;
         height: 65%;
         top:30%;
     }
     #button{
-        left:65%;
-        width: fit-content;
-        height: fit-content;
+        bottom:10%;
     }
 }
 
@@ -125,24 +143,20 @@ video{
         bottom:0;
     }
     #button{
-        box-sizing: border-box;
-        width: 200px;
+        box-sizing: border-box;        
         left: 50%;
         bottom:10%;
 
     }
     
 }
-@media only screen and (max-width:550px){
+@media only screen and (max-width:555px){
     #infoplus{
         height: 300px;
         top:50%;
     }
     #button{
         left:30%;
-        padding: 10px 20px;
-        width: fit-content;
-        height: fit-content;
     }
 }
 @media only screen and (max-width:320px){
@@ -158,8 +172,5 @@ video{
     }
     #button{
         left:20%;
-        padding: 10px 10px;
-        width: fit-content;
-        height: fit-content;
     }
 }

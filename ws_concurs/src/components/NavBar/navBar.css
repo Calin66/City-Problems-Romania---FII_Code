@@ -1,28 +1,18 @@
-#navbar{
-    width: 100%;
-    height: 80px;
-    display: flex;
-    z-index: 999;
-
-}
   
-  #bara{
-    background-color: black;
-    opacity: 80%;
-    width: 100%;
-    height: 80px;
-    position: absolute;
-    top:0;
-    z-index: 1;
-    display: none;
-  }
   #navigatie{
+      --transparent:transparent;
+      box-sizing: border-box;
+      position: absolute;
+      top:0;
       width: 100%;
+      height: 80px;
       z-index: 5;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 8%;
+      padding: 2% 8%;
+      background-color: var(--transparent);
+      transition: background 250ms ease-in;
   }
   #logo_sigla{
       display: flex;
@@ -49,23 +39,23 @@
       cursor:pointer;
       background-color: transparent;
   }
-  @media only screen and (max-width:500px){
-    #navigatie{
-            padding: 0 4%;
-    }
+  @media only screen and (max-width:552px){
+      #navigatie{
+          height: fit-content;
+          padding: 4% 4%;
+      }
       #sign{
           margin: 0 2% 0 2%;
-          
-          font-size: 20px;
-          padding: 0 12px;
-          max-width: fit-content;
+          font-size: 22px;
+          padding: 8px 5px;
+          width: 150px;
           max-height: fit-content;
       }
       #logo_sigla h1{
           font-size: 22px;
       }
       #logo_sigla img{
-          height: 55px;
+          height: 65px;
       }
   }
   @media only screen and (max-width:350px){
@@ -74,12 +64,10 @@
       }
       #logo_sigla img{
           height: 50px;
-          
       }
-  }
-  @media only screen and (max-width:300px){
       #sign{
-          font-size: 18px;
+          font-size: 17px;
           width: fit-content;
       }
   }
+  
