@@ -1,12 +1,31 @@
-import './App.css';
-import Header from './components/Header/header';
-import Navbar from './components/NavBar/navBar';
+import Form from "./components/Signup_Form/Form";
+import Navbar from "./components/NavBar/navBar";
+import Header from "./components/Header/header";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ErorrPage from "./components/ErorrPage";
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <Header />
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <Navbar />
+              <Header />
+            </div>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+              <Form />
+          }
+        />
+
+        <Route path="*" element={<ErorrPage />} />
+      </Routes>
+    </Router>
   );
 }
 

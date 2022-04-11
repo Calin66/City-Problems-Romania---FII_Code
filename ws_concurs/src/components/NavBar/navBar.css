@@ -1,55 +1,138 @@
-  
+ #user-container{
+    position: absolute;
+    top:0;
+    right: 10%;
+    padding:2%;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    transition: background 500ms ease;
+}
+#user-container:hover{
+    grid-template-rows: 1fr 3fr;
+    background-color: #1B1A17;
+    border-radius: 0 0 5px 5px;
+    height:400px;
+    box-shadow: 0 0 2px white;
+}
+#user-container:hover #user-options{
+    display: block;
+}
+
+.user-icon{
+    cursor:pointer;
+    color: ghostwhite;
+    font-size: 40px; 
+}
+.user-name{
+    color: white;
+    font-size: 25px;
+    margin:0px 20px 0 0;
+}
+.user-name-icon{
+    width:100%;
+    display: flex;
+    cursor: pointer;
+}
+.user-name-icon:hover > .user-name{
+    color: #E45826;
+}
+.user-name-icon:hover > .user-icon{
+    color: #E45826;
+}
+#logout{
+    color:crimson;
+    font-weight: 500;
+}
+#logout:hover{
+    color:red !important;
+}
+
+#user-options{
+    margin-top: 30px;
+    color:white;
+    font-size: 20px;
+    display: none;
+    margin-top: 35px;
+} 
+#user-options p{
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 500;
+    transition: color 250ms ease;
+}
+#user-options p:hover{
+    color:#E45826;
+}
+
   #navigatie{
       --transparent:transparent;
       box-sizing: border-box;
       position: absolute;
       top:0;
       width: 100%;
-      height: 80px;
       z-index: 5;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 2% 8%;
+      padding: 1.5% 8% 0% 8%;
+      height: fit-content;
       background-color: var(--transparent);
       transition: background 250ms ease-in;
   }
   #logo_sigla{
       display: flex;
       align-items: center;
-  }
+      padding: 0px 0px 5px 15px;
+      transition: background 500ms ease;
+    }
+    #logo_sigla h1:hover{
+        color:#E45826;
+        font-weight: 700;
+    }
   #logo_sigla h1{
       font-size: 25px;
       color:white;
       margin-left: 10%;
   }
   #logo_sigla img{
-      height: 60px;
+      height: 65px;
+      position: relative;
+      bottom:5px;
   }
   #sign{
-      border: 1px solid #E45826;
-      box-shadow: 0 0 10px #E45826;
-      border-radius: 50px;
+      position: relative;
+      bottom:4px;
+      left:2px;
+      border: 1px solid #FFAF00;
+      box-shadow: 0 0 5px 1px #FFAF00;
+      border-radius: 5px;
       width:fit-content;
       height: fit-content;
-      padding: 7px 20px;
-      font-size: 23px;
+      padding: 4px 18px;
+      font-size: 22px;
       color:white;
       background-color: none;
       cursor:pointer;
       background-color: transparent;
+      transition: background 250ms ease;
   }
-  @media only screen and (max-width:552px){
+  #sign:hover{
+    background-color: #FFAF00;
+  }
+  @media only screen and (max-width:555px){
       #navigatie{
           height: fit-content;
-          padding: 4% 4%;
+          padding: 5% 2%;
       }
       #sign{
           margin: 0 2% 0 2%;
           font-size: 22px;
-          padding: 8px 5px;
-          width: 150px;
-          max-height: fit-content;
+          padding: 5px 10px;
+          width: max-content;
+          height: fit-content;
       }
       #logo_sigla h1{
           font-size: 22px;
@@ -57,6 +140,32 @@
       #logo_sigla img{
           height: 65px;
       }
+      #user-container{
+          padding: 6% 3%;
+          right:0;
+      }
+      .user-icon {
+        font-size: 38px;
+      }
+      .user-name{
+          font-size: 24px;
+      }
+  }
+  @media only screen and (max-width:425px){
+      .user-name{
+          display: none;
+      }
+      .user-icon{
+          font-size: 55px;
+      }
+      #user-container{
+          padding:5% 3%;
+      }
+      #user-container:hover{
+        width: 100%;
+        padding: 10% 10%;
+    }
+      
   }
   @media only screen and (max-width:350px){
       #logo_sigla h1{
@@ -69,5 +178,55 @@
           font-size: 17px;
           width: fit-content;
       }
+      #user p{
+          display: none;
+      }
+      #user {
+          bottom:5px;
+      }
+      #user{
+        position: absolute;
+        top:0;
+        right: 1%;
+        background-color: transparent;
+        padding:1% 10px;
+        width: fit-content;
+        height: fit-content;
+        cursor: pointer;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        transition: background 400ms ease;
+    }
+    #user:hover{
+        grid-template-rows: 1fr 3fr;
+        background-color: #FFAF00;
+        height:300px;
+    }
+    .user-hatz{
+        z-index: 10;
+        display: flex;
+        padding: 5px;
+    }
+    .user-icon{
+        cursor:pointer;
+        color: ghostwhite;
+        font-size: 40px; 
+    }
+    .userName{
+        color: white;
+        font-size: 25px;
+        margin:0px 20px 0 0;
+    }
+    
+    .userDetails{
+        margin-top: 15px;
+        color:white;
+        font-size: 20px;
+        display: none;
+    } 
+    .userDetails:hover{
+        display:block;
+    }
   }
   
