@@ -25,15 +25,7 @@ const Form = () => {
   let navigate = useNavigate();
   if (currentUser) navigate("/");
   return (
-    <div
-      style={{
-        backgroundColor: "#FFAF00",
-        height: "100vh",
-        width: "100%",
-        padding: "auto",
-        position: "absolute",
-      }}
-    >
+    <div className="container-sign-login">
       <div className="form-container">
         <Link
           to="/"

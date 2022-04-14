@@ -106,12 +106,12 @@
       position: relative;
       bottom:4px;
       left:2px;
-      border: 1px solid #FFAF00;
-      box-shadow: 0 0 5px 1px #FFAF00;
+      border: 1px solid #E45826;
+      box-shadow: 0 0 5px 1px #E45826;
       border-radius: 5px;
       width:fit-content;
       height: fit-content;
-      padding: 4px 18px;
+      padding: 5px 20px;
       font-size: 22px;
       color:white;
       background-color: none;
@@ -120,7 +120,7 @@
       transition: background 250ms ease;
   }
   #sign:hover{
-    background-color: #FFAF00;
+    background-color: #E45826;
   }
   @media only screen and (max-width:555px){
       #navigatie{
