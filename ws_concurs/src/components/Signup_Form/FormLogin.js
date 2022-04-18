@@ -1,13 +1,12 @@
 import React, { useRef } from "react";
-import validate from "./validateInfo";
+import { validateLoginInfo } from "./validateInfo";
 import { LoginForm } from "./useForm";
 import "./Form.css";
 
-const FormLogin = ({ toLogin, submitForm }) => {
+const FormLogin = ({ toLogin}) => {
   const { handleChange, handleSubmit, values, errors} = LoginForm(
     toLogin,
-    submitForm,
-    validate
+    validateLoginInfo
   );
   const emailRef = useRef();
   const passwordRef = useRef();
