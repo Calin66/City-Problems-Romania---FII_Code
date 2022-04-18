@@ -48,7 +48,7 @@ const Form = () => {
         {!login ? (
           <FormSignup toLogin={toLogin} submitForm={submitForm} />
         ) : (
-          <FormLogin />
+          <FormLogin toLogin={toLogin} submitForm={submitForm}/>
         )}
       </div>
     </div>
