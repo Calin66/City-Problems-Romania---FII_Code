@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 const useForm = (log, callback, validate) => {
   const [values, setValues] = useState({
     username: "",
+    name:"",
+    judet:"",
+    localitate:"",
+    dovada:null,
     email: "",
     password: "",
     password2: "",

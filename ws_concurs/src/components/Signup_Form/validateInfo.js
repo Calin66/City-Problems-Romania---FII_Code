@@ -3,7 +3,18 @@ export default function validateInfo(values) {
   if (!values.username.trim()) {
     errors.username = "Camp obligatoriu";
   }
-
+  if(!values.name){
+    errors.name = "Camp obligatoriu";
+  }
+  if(!values.judet){
+    errors.judet = "Camp obligatoriu";
+  }
+  if(!values.localitate){
+    errors.localitate = "Camp obligatoriu";
+  }
+  if(!values.dovada){
+    errors.dovada = "Camp obligatoriu";
+  }
   if (!values.email) {
     errors.email = "Camp obligatoriu";
   } else if (!/^[A-Z0-9._%+=]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {

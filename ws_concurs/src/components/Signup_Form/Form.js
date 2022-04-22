@@ -25,32 +25,27 @@ const Form = () => {
   let navigate = useNavigate();
   if (currentUser) navigate("/");
   return (
-    <div className="container-sign-login">
-      <div className="form-container">
-        <Link
-          to="/"
-          style={{
-            backgroundColor: "white",
-            width: "fit-content",
-            height: "fit-content",
-            position: "absolute",
-            right: "5%",
-            top: "5%",
-          }}
-        >
-          <span className="close-btn">
-            <IoClose style={{ fontSize: "35px" }} />
-          </span>
-        </Link>
-        {!login ? (
-          <FormSignup toLogin={toLogin} submitForm={submitForm} />
-        ) : (
-          <FormLogin toLogin={toLogin} submitForm={submitForm} />
-        )}
-        <div className="form-content-left">
-          <img src="img/img-1.png" alt="spaceship" className="form-img" />
-        </div>
-      </div>
+    <div style={{ position: "relative" }}>
+      <Link
+        to="/"
+        style={{
+          backgroundColor: "white",
+          width: "fit-content",
+          height: "fit-content",
+          position: "absolute",
+          right: "19%",
+          top: "100px",
+        }}
+      >
+        <span className="close-btn">
+          <IoClose style={{ fontSize: "35px" }} />
+        </span>
+      </Link>
+      {!login ? (
+        <FormSignup toLogin={toLogin} submitForm={submitForm} />
+      ) : (
+        <FormLogin toLogin={toLogin} submitForm={submitForm} />
+      )}
     </div>
   );
 };
