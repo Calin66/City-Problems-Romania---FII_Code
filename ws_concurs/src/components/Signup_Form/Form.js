@@ -42,14 +42,14 @@ const Form = () => {
             <IoClose style={{ fontSize: "35px" }} />
           </span>
         </Link>
-        <div className="form-content-left">
-          <img src="img/img-1.png" alt="spaceship" className="form-img" />
-        </div>
         {!login ? (
           <FormSignup toLogin={toLogin} submitForm={submitForm} />
         ) : (
-          <FormLogin toLogin={toLogin} submitForm={submitForm}/>
+          <FormLogin toLogin={toLogin} submitForm={submitForm} />
         )}
+        <div className="form-content-left">
+          <img src="img/img-1.png" alt="spaceship" className="form-img" />
+        </div>
       </div>
     </div>
   );
