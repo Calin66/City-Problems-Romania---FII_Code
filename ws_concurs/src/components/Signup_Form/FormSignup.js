@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import validate from "./validateInfo";
 import useForm from "./useForm";
 import "./Form.css";
+import { useNavigate } from "react-router-dom";
 
 const FormSignup = ({ toLogin, submitForm }) => {
   const { handleChange, handleSubmit, values, errors } = useForm(
@@ -11,6 +12,7 @@ const FormSignup = ({ toLogin, submitForm }) => {
   );
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
 
   return (
     <div className="container-sign-login">
@@ -112,9 +114,8 @@ const FormSignup = ({ toLogin, submitForm }) => {
             <label className="form-label">Dovada adresa</label>
             <input
               className="form-input"
-              type="text"
+              type="file"
               name="dovada"
-              placeholder="Ex: Poza cu buletin"
               value={values.dovada}
               onChange={handleChange}
             />
@@ -125,8 +126,13 @@ const FormSignup = ({ toLogin, submitForm }) => {
             Sign up
           </button>
           <span className="form-input-login">
-            Ai deja un cont? Login{" "}
-            <a href="#" onClick={toLogin}>
+            Ai deja un cont? Login
+            <a
+              href="#"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
               aici
             </a>
           </span>

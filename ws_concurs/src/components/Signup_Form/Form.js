@@ -1,29 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormSignup from "./FormSignup";
 import FormLogin from "./FormLogin";
 import "./Form.css";
 import { Link } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../firebase";
+import { db, useAuth } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 const Form = () => {
   const [login, setLogin] = useState(false);
   const [submit, setSubmit] = useState(false);
-  const currentUser = useAuth();
+  const auth = getAuth();
+  const user = auth.currentUser;
+
   const submitForm = () => {
     setSubmit(true);
     if (!login) {
-      alert("Contul dumneavoastra a fost creat");
+      // aici ar trebui sa vina datele aditionale despre utilizator. foloseste uid
+      const addInfo = async () => {
+        const infoRef = doc(db, "users", user.uid);
+        try {
+          await setDoc(infoRef, { name: "Calin" });
+        } catch (error) {
+          alert(error);
+        }
+      };
+      addInfo();
+
       navigate("/");
+      alert("Contul dumneavoastra a fost creat");
+
+      setLogin(true);
     }
   };
   const toLogin = () => {
-    if (login) submitForm();
+    if (!login) submitForm();
     else setLogin(true);
   };
 
   let navigate = useNavigate();
-  if (currentUser) navigate("/");
+
   return (
     <div style={{ position: "relative" }}>
       <Link

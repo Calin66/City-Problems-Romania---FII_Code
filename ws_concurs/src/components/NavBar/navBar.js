@@ -6,11 +6,11 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { useAuth } from "../../firebase";
 import { BiExit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import {logout } from "../../firebase";
+import { logout } from "../../firebase";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [loading, setLoading] = useState(false);
-  
+
   let navigate = useNavigate();
   const handleNewPost = () => {
     navigate("/creeazapostare");
@@ -28,7 +28,7 @@ const Navbar = () => {
   }
 
   return (
-    <div id="navigatie">
+    <div id="navigatie" style={{ backgroundColor: props.backgroundColor }}>
       <Link to="/" style={{ textDecoration: "none" }}>
         <div id="logo_sigla">
           <img src={sgl} />
@@ -48,7 +48,7 @@ const Navbar = () => {
           <div id="user-options">
             <p onClick={handleNewPost}>Creeaza postare</p>
             <p>Postarile mele</p>
-            <p>Detalii cont</p>
+            <p onClick={() => navigate("/detaliicont")}>Detalii cont</p>
             <p>Favorite</p>
             <p id="logout" onClick={handleLogout}>
               Log out

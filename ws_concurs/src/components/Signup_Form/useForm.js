@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { login, signup } from "../../firebase";
+import { db, login, signup } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
 const useForm = (log, callback, validate) => {
   const [values, setValues] = useState({
     username: "",
-    name:"",
-    judet:"",
-    localitate:"",
-    dovada:null,
+    name: "",
+    judet: "",
+    localitate: "",
+    dovada: "",
     email: "",
     password: "",
     password2: "",
@@ -36,15 +37,17 @@ const useForm = (log, callback, validate) => {
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-
-      signup(values.email, values.password).catch(function (error) {
-        let errorCode = error.code;
-        if (errorCode == "auth/email-already-in-use") {
-          log();
-          alert("Email deja inregistrat");
-        }
-      });
-      log();
+      const forsign = async () => {
+        await signup(values.email, values.password).catch(function (error) {
+          let errorCode = error.code;
+          if (errorCode == "auth/email-already-in-use") {
+            log();
+            alert("Email deja inregistrat");
+          }
+        });
+        log();
+      };
+      forsign();
     }
   }, [errors]);
 
@@ -77,11 +80,11 @@ export const LoginForm = (callback, validate) => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       login(values.email, values.password).catch(function (error) {
         let errorCode = error.code;
-        if (errorCode) alert(errorCode)
-       })
+        if (errorCode) alert(errorCode);
+      });
       callback();
-      }
+    }
   }, [errors]);
 
-  return { handleChange, values, handleSubmit, errors};
+  return { handleChange, values, handleSubmit, errors };
 };
