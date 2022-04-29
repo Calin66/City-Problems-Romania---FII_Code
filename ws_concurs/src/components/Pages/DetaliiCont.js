@@ -23,17 +23,17 @@ const DetaliiCont = () => {
 
   const getUsers = async () => {
     if (userA) {
+      // console.log(userA);
       const uid = userA.uid;
       const userCollectionRef = doc(db, "users", uid);
       const docSnap = await getDoc(userCollectionRef);
       if (docSnap.exists()) {
         setUserCData(docSnap.data());
-        console.log(docSnap.data());
+        // console.log(docSnap.data());
       } else {
         console.log("No");
       }
       if (userA.photoURL) {
-        console.log(userA);
         setPhotoURL(userA.photoURL);
       }
     }
@@ -90,7 +90,7 @@ const DetaliiCont = () => {
             <h1>Email</h1>
             <p>{userA && userA.email}</p>
             <h1>Username</h1>
-            <p></p>
+            <p>{userA && userA.displayName}</p>
             <h1>User profile picture</h1>
             <div className="fields">
               <input type="file" onChange={handleChange} />
@@ -99,7 +99,7 @@ const DetaliiCont = () => {
               </button>
               <img src={photoURL} alt="" className="avatar" />
             </div>
-            <p
+            {/* <p
               style={{
                 position: "relative",
                 bottom: "10px",
@@ -108,7 +108,9 @@ const DetaliiCont = () => {
               }}
             >
               Refresh pagina pentru schimbari
-            </p>
+            </p> */}
+            <h1>Dovada adresa</h1>
+            <img src={userCData && userCData.dovada} className="dovadaImg" />
           </div>
         </div>
       </div>

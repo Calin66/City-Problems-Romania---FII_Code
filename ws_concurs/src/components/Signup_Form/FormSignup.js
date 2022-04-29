@@ -5,7 +5,7 @@ import "./Form.css";
 import { useNavigate } from "react-router-dom";
 
 const FormSignup = () => {
-  const { handleChange, handleSubmit, values, errors } = useForm(
+  const { handleChange, handleSubmit, handleImageChange, values, errors } = useForm(
     validate
   );
   const emailRef = useRef();
@@ -114,8 +114,7 @@ const FormSignup = () => {
               className="form-input"
               type="file"
               name="dovada"
-              value={values.dovada}
-              onChange={handleChange}
+              onChange={handleImageChange}
             />
             {errors.dovada && <p>{errors.dovada}</p>}
           </div>

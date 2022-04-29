@@ -42,7 +42,9 @@ const Navbar = (props) => {
       ) : (
         <div id="user-container">
           <div className="user-name-icon" onClick={() => setOpenSide(true)}>
-            <p className="user-name">Username</p>
+            <p className="user-name">
+              {currentUser.displayName ? currentUser.displayName : "Username"}
+            </p>
             {currentUser.photoURL ? (
               <img className="profilePic" src={currentUser.photoURL} />
             ) : (

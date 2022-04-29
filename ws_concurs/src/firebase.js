@@ -29,7 +29,7 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 const auth = getAuth();
 
-const storage = getStorage(app);
+export const storage = getStorage(app);
 
 export async function signup(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
@@ -63,5 +63,5 @@ export async function upload(file, currentUser, setLoading) {
 
   updateProfile(currentUser, { photoURL });
   setLoading(false);
-  alert("Upload complet");
+  alert("Upload complet - Refresh pagina pentru schimbari");
 }

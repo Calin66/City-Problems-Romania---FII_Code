@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
 import { db, login, signup } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { getAuth, updateProfile } from "firebase/auth";
 import { storage } from "../../firebase";
-import { ref } from "firebase/storage";
-import { async } from "@firebase/util";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 const useForm = (validate) => {
   const [values, setValues] = useState({
     username: "",
     name: "",
     judet: "",
     localitate: "",
-    dovada: null,
+    dovada: "",
     email: "",
     password: "",
     password2: "",
@@ -27,6 +26,14 @@ const useForm = (validate) => {
     setValues({
       ...values,
       [name]: value,
+    });
+  };
+  const handleImageChange = (e) => {
+    const { name } = e.target;
+    const fileU = e.target.files[0];
+    setValues({
+      ...values,
+      [name]: fileU,
     });
   };
   const handleSubmit = (e) => {
@@ -49,17 +56,22 @@ const useForm = (validate) => {
         try {
           await setDoc(infoRef, {
             name: values.name,
+            email: values.email,
             judet: values.judet,
             localitate: values.localitate,
           });
+          const displayName = values.username;
+          updateProfile(user, { displayName });
         } catch (error) {
+          isErorare(true);
           alert(error);
         }
       };
       await addInfo();
-
-      navigate("/");
-      alert("Contul dumneavoastra a fost creat");
+      if (!isErorare) {
+        navigate("/");
+        alert("Contul dumneavoastra a fost creat");
+      }
     }
   };
 
@@ -73,18 +85,40 @@ const useForm = (validate) => {
             setIsEroare(true);
           }
         });
-        // const imageRef=ref(storage, `images/${values.dovada.name}`);
+        //pt imagine
+
         if (isErorare) {
           navigate("/login");
         } else {
           log();
         }
+        //
+        const forImage = async () => {
+          const imageRef = ref(storage, `images/${values.dovada}`);
+          const snapI = await uploadBytes(imageRef, values.dovada);
+          const iURL = await getDownloadURL(imageRef);
+
+          console.log(iURL);
+          const auth = getAuth();
+          const user = auth.currentUser;
+          const infoRef = doc(db, "users", user.uid);
+          await updateDoc(infoRef, { dovada: iURL });
+        };
+        await forImage();
+        //
       };
       forsign();
     }
   }, [errors]);
 
-  return { handleChange, values, handleSubmit, errors, handleLogin };
+  return {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+    handleLogin,
+    handleImageChange,
+  };
 };
 
 export default useForm;
@@ -105,6 +139,7 @@ export const LoginForm = (callback, validate) => {
       [name]: value,
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors(validate(values));
