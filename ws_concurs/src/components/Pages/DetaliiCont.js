@@ -1,24 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "./DetaliiCont.css";
-import { BsGithub } from "react-icons/bs";
-import { BsLinkedin } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import Navbar from "../NavBar/navBar.js";
-import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { db, upload } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const DetaliiCont = () => {
-  const [pagina, setPagina] = useState(0);
-  const [users, setUsers] = useState([]);
-  const usersCollectionRef = collection(db, "users");
+  const [userCData, setUserCData] = useState();
+  const [photo, setPhoto] = useState(null);
+  const [userA, setUserA] = useState();
+  const [loading, setLoading] = useState(false);
+  const [photoURL, setPhotoURL] = useState(
+    "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+  );
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUserA(user);
+    }
+  });
+
+  const getUsers = async () => {
+    if (userA) {
+      const uid = userA.uid;
+      const userCollectionRef = doc(db, "users", uid);
+      const docSnap = await getDoc(userCollectionRef);
+      if (docSnap.exists()) {
+        setUserCData(docSnap.data());
+        console.log(docSnap.data());
+      } else {
+        console.log("No");
+      }
+      if (userA.photoURL) {
+        console.log(userA);
+        setPhotoURL(userA.photoURL);
+      }
+    }
+  };
+  function handleChange(e) {
+    if (e.target.files[0]) {
+      setPhoto(e.target.files[0]);
+    }
+  }
+  function handleClick() {
+    upload(photo, userA, setLoading);
+  }
   useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
     getUsers();
-  }, []);
+  }, [userA]);
   return (
     <div className="container-detalii">
       <Navbar backgroundColor="black" />
@@ -28,41 +58,59 @@ const DetaliiCont = () => {
             style={{ textDecoration: "none", listStyle: "none" }}
             className="optiuni"
           >
-            <li onClick={() => setPagina(0)}>Informatii utilizator</li>
-            <li onClick={() => setPagina(1)}>Creeaza postare</li>
-            <li onClick={() => setPagina(2)}>Postarile mele</li>
-            <li onClick={() => setPagina(3)}>Favorite</li>
-            <li onClick={() => setPagina(4)}>Securitate</li>
+            <li>Informatii utilizator</li>
+            <li>Creeaza postare</li>
+            <li>Postarile mele</li>
+            <li>Favorite</li>
+            <li>Securitate</li>
           </ul>
         </div>
-        {!pagina ? (
-          <div id="opt-cont">
-            <div className="optiune-cont">
-              <h1>Nume</h1>
-              {users.map((user) => {
-                return <p>{user.name}</p>;
-              })}
-              <h1>Judet</h1>
-              <p>Iasi</p>
-              <h1>Localitate</h1>
-              <p>Rediu</p>
-              <h1 style={{ marginTop: "20px", marginBottom: "10px" }}>
-                My Rating
-              </h1>
-              <div
-                style={{ color: "orange", display: "flex", fontSize: "25px" }}
-              >
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-              </div>
+        <div id="opt-cont">
+          <div className="optiune-cont">
+            <h1>Nume</h1>
+            <p>{userCData && userCData.name}</p>
+            <h1>Judet</h1>
+            <p>{userCData && userCData.localitate}</p>
+            <h1>Localitate</h1>
+            <p>{userCData && userCData.judet}</p>
+            <h1 style={{ marginTop: "20px", marginBottom: "10px" }}>
+              My Rating
+            </h1>
+            <div style={{ color: "orange", display: "flex", fontSize: "25px" }}>
+              <AiFillStar />
+              <AiFillStar />
+              <AiFillStar />
+              <AiFillStar />
+              <AiFillStar />
             </div>
           </div>
-        ) : (
-          <div></div>
-        )}
+        </div>
+        <div className="informatiiUtilizator2">
+          <div className="optiune-cont">
+            <h1>Email</h1>
+            <p>{userA && userA.email}</p>
+            <h1>Username</h1>
+            <p></p>
+            <h1>User profile picture</h1>
+            <div className="fields">
+              <input type="file" onChange={handleChange} />
+              <button disabled={loading || !photo} onClick={handleClick}>
+                Upload
+              </button>
+              <img src={photoURL} alt="" className="avatar" />
+            </div>
+            <p
+              style={{
+                position: "relative",
+                bottom: "10px",
+                fontSize: "16px",
+                left: "130px",
+              }}
+            >
+              Refresh pagina pentru schimbari
+            </p>
+          </div>
+        </div>
       </div>
       ;
     </div>

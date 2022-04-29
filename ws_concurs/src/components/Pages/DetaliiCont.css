@@ -1,4 +1,7 @@
-
+.informatiiUtilizator2{
+    background-color: lightsalmon;
+    color:white;
+}
 .detalii-cont{
     position: relative;
     width: 90%;
@@ -7,7 +10,7 @@
     height: 80vh;
     box-shadow: 0 0 5px 1px #E45826;
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 2fr 4fr 4fr;
 }
 .cont-optiuni{
     display: flex;
@@ -75,4 +78,13 @@
 .integ{
     font-size: 50px;
     cursor: pointer;
+}
+.avatar{
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    margin-left: 30px;
+    border-radius: 50%;
+    border:2px solid gray;
+    
 }

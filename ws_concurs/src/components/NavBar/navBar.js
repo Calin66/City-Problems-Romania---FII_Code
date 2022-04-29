@@ -43,7 +43,11 @@ const Navbar = (props) => {
         <div id="user-container">
           <div className="user-name-icon" onClick={() => setOpenSide(true)}>
             <p className="user-name">Username</p>
-            <FaRegUserCircle className="user-icon" />
+            {currentUser.photoURL ? (
+              <img className="profilePic" src={currentUser.photoURL} />
+            ) : (
+              <FaRegUserCircle className="user-icon" />
+            )}
           </div>
           <div id="user-options">
             <p onClick={handleNewPost}>Creeaza postare</p>

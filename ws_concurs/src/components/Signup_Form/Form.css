@@ -123,6 +123,7 @@
     text-decoration: none;
     color: #F0A500;
     font-weight: 600;
+    margin-left: 5px;
   }
   .form-input-login a:hover {
     text-decoration: none;

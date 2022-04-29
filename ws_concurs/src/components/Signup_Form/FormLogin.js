@@ -17,7 +17,7 @@ const FormLogin = ({ toLogin }) => {
         onSubmit={handleSubmit}
         className="form-container"
         noValidate
-        style={{ gridTemplateColumns: "1fr" }}
+        style={{ gridTemplateColumns: "1fr"}}
       >
         <div className="form form-content-right">
           <h1>Login aici</h1>

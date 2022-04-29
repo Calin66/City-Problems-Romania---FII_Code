@@ -11,29 +11,29 @@ import { getAuth } from "firebase/auth";
 const Form = () => {
   const [login, setLogin] = useState(false);
   const [submit, setSubmit] = useState(false);
-  const auth = getAuth();
-  const user = auth.currentUser;
 
-  const submitForm = () => {
-    setSubmit(true);
-    if (!login) {
-      // aici ar trebui sa vina datele aditionale despre utilizator. foloseste uid
-      const addInfo = async () => {
-        const infoRef = doc(db, "users", user.uid);
-        try {
-          await setDoc(infoRef, { name: "Calin" });
-        } catch (error) {
-          alert(error);
-        }
-      };
-      addInfo();
-
-      navigate("/");
-      alert("Contul dumneavoastra a fost creat");
-
-      setLogin(true);
-    }
+  //
+  const submitForm = async () => {
+    //   setSubmit(true);
+    //   if (!login) {
+    //     const auth = getAuth();
+    //     const user = auth.currentUser;
+    //     // aici ar trebui sa vina datele aditionale despre utilizator. foloseste uid
+    //     const addInfo = async () => {
+    //       const infoRef = doc(db, "users", user.uid);
+    //       try {
+    //         await setDoc(infoRef, { name: "Calin" });
+    //       } catch (error) {
+    //         alert(error);
+    //       }
+    //     };
+    //     await addInfo();
+    //     navigate("/");
+    //     alert("Contul dumneavoastra a fost creat");
+    //     setLogin(true);
+    //   }
   };
+  //
   const toLogin = () => {
     if (!login) submitForm();
     else setLogin(true);

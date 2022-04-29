@@ -4,10 +4,8 @@ import useForm from "./useForm";
 import "./Form.css";
 import { useNavigate } from "react-router-dom";
 
-const FormSignup = ({ toLogin, submitForm }) => {
+const FormSignup = () => {
   const { handleChange, handleSubmit, values, errors } = useForm(
-    toLogin,
-    submitForm,
     validate
   );
   const emailRef = useRef();
