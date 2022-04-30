@@ -4,9 +4,9 @@ import Navbar from "./components/NavBar/navBar";
 import Header from "./components/Header/header";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ErorrPage from "./components/ErorrPage";
-import Postare from "./components/Postari/postare";
-import DetaliiCont from "./components/Pages/DetaliiCont";
+import DetaliiCont from "./components/Pages/DetaliiCont/DetaliiCont";
 import FormLogin from "./components/Signup_Form/FormLogin";
+import Postare from "./components/Pages/Postare/Postare";
 function App() {
   return (
     <Router>

@@ -1,4 +1,5 @@
- .profilePic{
+
+.profilePic{
      width: 45px;
      height: 45px;
      border: 1px solid white;
@@ -6,14 +7,18 @@
      position: relative;
      bottom: 4px;
  }
+ .profilePic:hover{
+     border-color: #E45826;
+ }
  
  #user-container{
     position: absolute;
-    top:0;
+    top:-2px;
     right: 10%;
-    padding:2%;
-    width: fit-content;
-    height: fit-content;
+    padding:35px;
+    /* width: fit-content; */
+    /* height: fit-content; */
+    /* background-color: #FFAF00; */
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -85,14 +90,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.5% 8% 0% 8%;
-      height: fit-content;
-      background-color: transparent;
+      padding: 3.5vh 8% 0 8%;
+      height: 100px;
+      /* background-color: blue; */
       transition: background 250ms ease-in;
   }
   #logo_sigla{
       display: flex;
       align-items: center;
+      position: relative;
+      bottom: 10px;
+        /* background-color: red; */
       padding: 0px 0px 5px 15px;
       transition: background 500ms ease;
     }
@@ -106,7 +114,7 @@
       margin-left: 10%;
   }
   #logo_sigla img{
-      height: 65px;
+      height:55px;
       position: relative;
       bottom:5px;
   }
@@ -130,13 +138,10 @@
   #sign:hover{
     background-color: #E45826;
   }
-  @media only screen and (max-width:555px){
-      #navigatie{
-          height: fit-content;
-          padding: 5% 2%;
-      }
+  @media only screen and (max-width:700px){
+      
       #sign{
-          margin: 0 2% 0 2%;
+          margin: 0 2%;
           font-size: 22px;
           padding: 5px 10px;
           width: max-content;
@@ -145,11 +150,11 @@
       #logo_sigla h1{
           font-size: 22px;
       }
-      #logo_sigla img{
+      /* #logo_sigla img{
           height: 65px;
-      }
+      } */
       #user-container{
-          padding: 6% 3%;
+          /* padding: 3vh 3%; */
           right:0;
       }
       .user-icon {
@@ -159,23 +164,21 @@
           font-size: 24px;
       }
   }
-  @media only screen and (max-width:425px){
+  @media only screen and (max-width:480px){
       .user-name{
           display: none;
       }
       .user-icon{
           font-size: 55px;
       }
-      #user-container{
-          padding:5% 3%;
-      }
+      
       #user-container:hover{
         width: 100%;
-        padding: 10% 10%;
+        padding: 5vh 10%;
     }
       
   }
-  @media only screen and (max-width:350px){
+  @media only screen and (max-width:385px){
       #logo_sigla h1{
           font-size: 20px;
       }
@@ -197,7 +200,7 @@
         top:0;
         right: 1%;
         background-color: transparent;
-        padding:1% 10px;
+        padding:1vh 10px;
         width: fit-content;
         height: fit-content;
         cursor: pointer;
@@ -236,5 +239,11 @@
     .userDetails:hover{
         display:block;
     }
+  }
+  @media only screen and (max-width:350px){
+      #logo_sigla h1{
+          font-size: 16px;
+          width: 40%;
+      }
   }
   
