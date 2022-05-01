@@ -2,10 +2,120 @@
     background-color: gainsboro;
     display: flex;
     justify-content: center;
+    padding-bottom: 10vh;
 }
 .cp-fields{
-    margin-top: 20vh;
+    margin-top: 200px;
     background-color: white;
-    height: 100vh;
-    width: 80%;
+    box-shadow: 0px 0px 5px 6px lightgray;
+    height: 1000px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding:5vh 5%;
+}
+
+.cp-form-fields{
+    display: flex;
+    flex-direction: column;
+    /* background-color: aquamarine; */
+    width: 100%;
+    height: 100%;
+}
+.cp-field{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 65px;
+}
+.cp-field select{
+    /* display: none; */
+    height: 40px;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.cp-field label{
+    font-size: 20px;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 0.2vh;
+}
+.cp-field input{
+    display: block;
+    padding-left: 10px;
+    outline: none;
+    border-radius: 2px;
+    height: 50px;
+    margin-bottom: 1vh;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+}
+.cp-field input::placeholder {
+    color: #595959;
+    font-size: 0.9rem;
+  }
+.creeaza-postare{
+    width: 40%;
+    align-self: center;
+    height: 45px;
+    margin-top: 20px;
+    border-radius: 2px;
+    background: linear-gradient(
+    90deg,
+     blue 0%,
+     rgb(39, 176, 255) 100%
+  );
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+
+.creeaza-postare:hover{
+    cursor: pointer;
+   background: linear-gradient(
+    90deg,
+    rgb(39, 176, 255) 0%,
+    rgb(0, 232, 236) 100%
+  );
+    transition: all 0.4s ease-out;
+}
+/* .range-urg{
+    background-color:red !important;
+} */
+#h1-crp{
+    font-size: 26px;
+    position: absolute;
+    top: 150px;
+    left: 25%;
+    font-weight: 300;
+}
+@media only screen and (max-width:1400px){
+    .cp-fields{
+        width: 70%;
+    }
+    #h1-crp{
+        left:15%;
+    }
+    .creeaza-postare{
+        width: 60%;
+    }
+}
+@media only screen and (max-width:550px){
+    .cp-fields{
+        width: 90%;
+    }
+    #h1-crp{
+        left:5%;
+    }
+    .creeaza-postare{
+        width: 70%;
+        padding: 6px 0;
+        margin-top: 0;
+    }
+    .container-creeazapostare{
+        margin-top: 20px;
+    }
 }

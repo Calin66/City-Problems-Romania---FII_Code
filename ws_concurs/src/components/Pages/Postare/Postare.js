@@ -5,42 +5,43 @@ const Postare = () => {
   return (
     <div className="container-creeazapostare">
       <Navbar backgroundColor="black" />
-      <h1
-        style={{
-          fontSize: "30px",
-          zIndex: "100",
-          position: "absolute",
-          top: "15vh",
-          left: "10%",
-        }}
-      >
+      <h1 id="h1-crp">
         Creaza postare
       </h1>
       <div className="cp-fields">
-        <form noValidate>
-          <div>
-            <label>Ce problema ai gasit?</label>
-            <input />
+        <form className="cp-form-fields" noValidate>
+          <div className="cp-field">
+            <label>Titlul postarii</label>
+            <input placeholder="Ce problema ai sesizat?" />
           </div>
-          <div>
+          <div className="cp-field">
             <label>Tip problema</label>
+            <select>
+              <option value="intrebari">Intrebari</option>
+              <option value="propuneri">Propuneri</option>
+              <option value="probleme">Probleme</option>
+            </select>
           </div>
-          <div>
+          <div className="cp-field">
             <label>Adauga poze/video</label>
-            <input type="file" />
+            <input type="file" style={{ marginTop: "2vh" }} multiple />
           </div>
-          <div>
-            <label>Descrie mai detaliat</label>
-            <textarea></textarea>
+          <div className="cp-field">
+            <label>Descriere postare</label>
+            <textarea
+              style={{ marginTop: "1vh", height: "10vh", padding: " 5px 10px" }}
+              placeholder="Descrie mai detaliat problema pe care ai sesizat-o"
+            ></textarea>
           </div>
-          <div>
+          {/* <div className="cp-field">
             <label>Categorie</label>
-            {/* aici faceti voi un submenu de catogerii - vedeti in figma ce categorii si puteti sa mai adaugati */}
-          </div>
-          <div>
+          </div> */}
+
+          <div className="cp-field">
             <label>Grad urgenta</label>
-            <input type="range" />
+            <input type="range" min="0" max="5" className="range-urg"/>
           </div>
+          <button className="creeaza-postare" type="submit">Creeaza postare</button>
         </form>
       </div>
     </div>
