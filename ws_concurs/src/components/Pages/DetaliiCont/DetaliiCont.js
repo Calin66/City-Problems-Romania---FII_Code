@@ -8,6 +8,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { DetaliiContSwipe } from "./DetaliiContSwipe";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import LinkAdministrator from "./LinkAdministrator";
 
 const DetaliiCont = () => {
   const [userCData, setUserCData] = useState();
@@ -86,6 +87,11 @@ const DetaliiCont = () => {
                 <Link className="link" to="/securitate">
                   <li>Securitate</li>
                 </Link>
+                {userCData && (
+                  <LinkAdministrator
+                    number={userCData.status}
+                  />
+                )}
               </ul>
             </div>
             <div id="opt-cont">

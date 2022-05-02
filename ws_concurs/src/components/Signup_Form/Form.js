@@ -11,8 +11,8 @@ import { getAuth } from "firebase/auth";
 const Form = () => {
   const [login, setLogin] = useState(false);
   const [submit, setSubmit] = useState(false);
-
-  //
+  const [page, setPage] = useState(false);
+  
   const submitForm = async () => {
     //   setSubmit(true);
     //   if (!login) {
