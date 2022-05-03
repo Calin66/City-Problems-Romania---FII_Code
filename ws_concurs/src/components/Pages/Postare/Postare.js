@@ -1,10 +1,9 @@
-import { async } from "@firebase/util";
 import { getAuth } from "firebase/auth";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../../firebase";
+import { db, storage } from "../../../firebase";
 import Navbar from "../../NavBar/navBar";
 import "./Postare.css";
 import validateAP from "./validateAP";
@@ -32,13 +31,14 @@ const Postare = () => {
   const handleImageChange = (e) => {
     const { name } = e.target;
     const fileU = e.target.files;
+    // const fileArr=Array.from(fileU);
+    // console.log(fileArr[0]);
     setValues({
       ...values,
       [name]: fileU,
     });
   };
   const handleSubmit = (e) => {
-    console.log("DONE");
     e.preventDefault();
     setErrors(validateAP(values));
     setIsSubmitting(true);
@@ -66,10 +66,17 @@ const Postare = () => {
                   const imageRef = ref(storage, `imagesPostari/${imagine}`);
                   const snapI = await uploadBytes(imageRef, imagine);
                   const iURL = await getDownloadURL(imageRef);
-                  const infoRef = doc(db, "users", user.uid);
+                  const infoRef = doc(db, "posts", user.uid);
                   await updateDoc(infoRef, { [`img${count}`]: iURL });
                   setCount(count+1);
                 };
+                // const array = Array.from(values.pozeVideo);
+                // array.forEach(poza=>
+                // )
+                const filesp=values.pozeVideo;
+                for(let i=0; i<filesp.length; i++){
+                  await forImage(values.pozeVideo[i]);
+                }
                 alert("Postare Creata");
                 navigate("/");
               } catch (error) {
