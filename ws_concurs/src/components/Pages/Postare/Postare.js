@@ -9,18 +9,17 @@ import "./Postare.css";
 import validateAP from "./validateAP";
 const Postare = () => {
   const [count, setCount] = useState(0);
+  const [photoPostC, setPhotoPostC] = useState();
   const [values, setValues] = useState({
-    titlu:"",
-    tproblema:"",
-    pozeVideo:[],
-    descriere:"",
-    grad:0
-  })
+    titlu: "",
+    tproblema: "",
+    descriere: "",
+    grad: 0,
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   let navigate = useNavigate();
 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -29,14 +28,9 @@ const Postare = () => {
     });
   };
   const handleImageChange = (e) => {
-    const { name } = e.target;
-    const fileU = e.target.files;
-    // const fileArr=Array.from(fileU);
-    // console.log(fileArr[0]);
-    setValues({
-      ...values,
-      [name]: fileU,
-    });
+    if (e.target.files[0]) {
+      setPhotoPostC(e.target.files);
+    }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,53 +39,50 @@ const Postare = () => {
   };
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-        console.log("OKKKK");
-        const auth = getAuth();
-        const user = auth.currentUser;
-    
-        const doChestie = async() => {
-          if(user){
+      console.log("Incepe Submit");
+      const auth = getAuth();
+      const user = auth.currentUser;
 
-            const addInfo = async () => {
-              const infoRef = doc(db, "posts", user.uid);
-              try {
-                await setDoc(infoRef, {
-                  titlu:values.titlu,
-                  tproblema:values.tproblema,
-                  descriere:values.descriere,
-                  grad:values.grad,
-                  owner:user.uid
-                });
-                const forImage = async (imagine) => {
-                  const imageRef = ref(storage, `imagesPostari/${imagine}`);
-                  const snapI = await uploadBytes(imageRef, imagine);
-                  const iURL = await getDownloadURL(imageRef);
-                  const infoRef = doc(db, "posts", user.uid);
-                  await updateDoc(infoRef, { [`img${count}`]: iURL });
-                  setCount(count+1);
-                };
-                // const array = Array.from(values.pozeVideo);
-                // array.forEach(poza=>
-                // )
-                const filesp=values.pozeVideo;
-                for(let i=0; i<filesp.length; i++){
-                  await forImage(values.pozeVideo[i]);
-                }
-                alert("Postare Creata");
-                navigate("/");
-              } catch (error) {
-                alert(error);
+      const doChestie = async () => {
+        if (user) {
+          const addInfo = async () => {
+            const infoRef = doc(db, "posts", user.uid);
+            try {
+              await setDoc(infoRef, {
+                titlu: values.titlu,
+                tproblema: values.tproblema,
+                descriere: values.descriere,
+                grad: values.grad,
+                owner: user.uid,
+              });
+              // const forImage = async (imagine, i) => {
+              //   // const numeHa = `imagesPostari/${imagine}`;
+
+              // };
+              // const array = Array.from(values.pozeVideo);
+              // array.forEach(poza=>
+              // )
+              for (let i = 0; i < photoPostC.length; i++) {
+                const imageRef = ref(storage, user.uid + i + ".jpg");
+                let snapI = await uploadBytes(imageRef, photoPostC[i]);
+                let iURL = await getDownloadURL(imageRef);
+                const infoRef = doc(db, "posts", user.uid);
+                await updateDoc(infoRef, { [`img${i}`]: iURL });
               }
-            };
-            await addInfo();
-
-          }
+              alert("Postare Creata");
+              navigate("/");
+            } catch (error) {
+              alert(error);
+            }
+          };
+          await addInfo();
         }
-          doChestie();
-        }
-      }, [errors]); 
-      return (
-        <div className="container-creeazapostare">
+      };
+      doChestie();
+    }
+  }, [errors]);
+  return (
+    <div className="container-creeazapostare">
       <Navbar backgroundColor="black" />
       <h1 id="h1-crp">Creaza postare</h1>
       <div className="cp-fields">
@@ -103,12 +94,16 @@ const Postare = () => {
               value={values.titlu}
               onChange={handleChange}
               name="titlu"
-            /> 
+            />
             {errors.titlu && <p>{errors.titlu}</p>}
           </div>
           <div className="cp-field">
             <label>Tip problema</label>
-            <select value={values.tproblema} name="tproblema" onChange={handleChange}>
+            <select
+              value={values.tproblema}
+              name="tproblema"
+              onChange={handleChange}
+            >
               <option value="intrebari">Intrebari</option>
               <option value="propuneri">Propuneri</option>
               <option value="probleme">Probleme</option>
@@ -125,7 +120,6 @@ const Postare = () => {
               name="pozeVideo"
             />
             {errors.pozeVideo && <p>{errors.pozeVideo}</p>}
-
           </div>
           <div className="cp-field">
             <label>Descriere postare</label>
@@ -136,8 +130,7 @@ const Postare = () => {
               onChange={handleChange}
               placeholder="Descrie mai detaliat problema pe care ai sesizat-o"
             ></textarea>
-               {errors.descriere && <p>{errors.descriere}</p>}
-
+            {errors.descriere && <p>{errors.descriere}</p>}
           </div>
           {/* <div className="cp-field">
             <label>Categorie</label>
@@ -145,9 +138,16 @@ const Postare = () => {
 
           <div className="cp-field">
             <label>Grad urgenta</label>
-            <input type="range" min="0" max="5" className="range-urg" name="grad" value={values.grad} onChange={handleChange}/>
+            <input
+              type="range"
+              min="0"
+              max="5"
+              className="range-urg"
+              name="grad"
+              value={values.grad}
+              onChange={handleChange}
+            />
             {errors.grad && <p>{errors.grad}</p>}
-
           </div>
           <button className="creeaza-postare" type="submit">
             Creeaza postare

@@ -6,9 +6,6 @@ export default function validateAP(values) {
     if(!values.tproblema){
       errors.tproblema = "Camp obligatoriu";
     }
-    if(!values.pozeVideo){
-      errors.pozeVideo = "Camp obligatoriu";
-    }
     if(!values.descriere){
       errors.descriere = "Camp obligatoriu";
     }
