@@ -1,5 +1,5 @@
 import { getAuth } from "firebase/auth";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, Timestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,12 +7,14 @@ import { db, storage } from "../../../firebase";
 import Navbar from "../../NavBar/navBar";
 import "./Postare.css";
 import validateAP from "./validateAP";
+import { v4 as uuid } from 'uuid';
+
 const Postare = () => {
   const [count, setCount] = useState(0);
   const [values, setValues] = useState({
     titlu:"",
-    tproblema:"",
-    pozeVideo:[],
+    tproblema:"intrebari",
+    pozeVideo:"",
     descriere:"",
     grad:0
   })
@@ -45,37 +47,36 @@ const Postare = () => {
   };
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-        console.log("OKKKK");
+        console.log("Is Submitting");
         const auth = getAuth();
         const user = auth.currentUser;
-    
+        const unique_id = uuid();
+        
         const doChestie = async() => {
           if(user){
-
             const addInfo = async () => {
-              const infoRef = doc(db, "posts", user.uid);
+              const infoRef = doc(db, "posts", unique_id);
               try {
+                console.log("Am inceput");
                 await setDoc(infoRef, {
                   titlu:values.titlu,
                   tproblema:values.tproblema,
                   descriere:values.descriere,
                   grad:values.grad,
-                  owner:user.uid
+                  owner:user.uid,
+                  data:Timestamp.fromDate(new Date())
                 });
-                const forImage = async (imagine) => {
-                  const imageRef = ref(storage, `imagesPostari/${imagine}`);
-                  const snapI = await uploadBytes(imageRef, imagine);
-                  const iURL = await getDownloadURL(imageRef);
-                  const infoRef = doc(db, "posts", user.uid);
-                  await updateDoc(infoRef, { [`img${count}`]: iURL });
-                  setCount(count+1);
-                };
-                // const array = Array.from(values.pozeVideo);
-                // array.forEach(poza=>
-                // )
+                const forImage = async (imagine, i) => {
+                    const unique_id2 = uuid();
+                    const imageRef = ref(storage, `imagesPostari/${unique_id2}` + `${imagine.name}`);
+                    const snapI = await uploadBytes(imageRef, imagine);
+                    const iURL = await getDownloadURL(imageRef);
+                    await updateDoc(infoRef, { [`img${i}`]: iURL });
+                }
                 const filesp=values.pozeVideo;
                 for(let i=0; i<filesp.length; i++){
-                  await forImage(values.pozeVideo[i]);
+                  console.log(`try${i}`);
+                  await forImage(values.pozeVideo[i], i);
                 }
                 alert("Postare Creata");
                 navigate("/");

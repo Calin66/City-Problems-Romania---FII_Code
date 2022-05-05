@@ -12,9 +12,9 @@ import LinkAdministrator from "./LinkAdministrator";
 
 const DetaliiCont = () => {
   const [userCData, setUserCData] = useState();
+  const [userA, setUserA] = useState();
   const [toggle, setToggle] = useState(false);
   const [photo, setPhoto] = useState(null);
-  const [userA, setUserA] = useState();
   const [loading, setLoading] = useState(false);
   const [photoURL, setPhotoURL] = useState(
     "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
@@ -78,8 +78,8 @@ const DetaliiCont = () => {
                 <Link className="link" to="/creeazapostare">
                   <li>Creeaza postare</li>
                 </Link>
-                <Link className="link" to="/postarilemele">
-                  <li>Postarile mele</li>
+                <Link className="link" to="/postari">
+                  <li>Postari</li>
                 </Link>
                 <Link className="link" to="/favorite">
                   <li>Favorite</li>
