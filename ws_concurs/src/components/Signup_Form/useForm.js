@@ -95,7 +95,7 @@ const useForm = (validate) => {
         }
         //
         const forImage = async () => {
-          const imageRef = ref(storage, `images/${values.dovada}`);
+          const imageRef = ref(storage, "images/" + values.dovada + ".png");
           const snapI = await uploadBytes(imageRef, values.dovada);
           const iURL = await getDownloadURL(imageRef);
 
