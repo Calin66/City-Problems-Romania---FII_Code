@@ -12,6 +12,7 @@ import Administrator from "./components/Pages/Administrator/Administrator";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
+import Postari from "./components/Pages/Postari/Postari";
 function App() {
   const [userCData, setUserCData] = useState();
   const [userA, setUserA] = useState();
@@ -41,6 +42,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Form />} />
         <Route path="/login" element={<FormLogin />} />
+        <Route path="/postari" element={<Postari/>} />
         <Route element={<ProtectedRoutes />}>
           <Route
             path="/"

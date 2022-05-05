@@ -53,9 +53,9 @@ const Navbar = (props) => {
           </div>
           <div id="user-options">
             <p onClick={handleNewPost}>Creeaza postare</p>
-            <p>Postarile mele</p>
+            <p onClick={() => navigate("/postari")}>Postari</p>
             <p onClick={() => navigate("/detaliicont")}>Detalii cont</p>
-            <p>Favorite</p>
+            <p onClick={() => navigate("/favorite")}>Favorite</p>
             <p id="logout" onClick={handleLogout}>
               Log out
               <BiExit
