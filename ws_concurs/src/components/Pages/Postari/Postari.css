@@ -12,6 +12,9 @@
     padding: 20px 2%;
     height: 240px;
     z-index: 1;
+    border: 1px solid orange;
+    grid-column: 1;
+    margin-bottom: 30px;
 }
 .container-postari h1{
     font-size: 26px;
