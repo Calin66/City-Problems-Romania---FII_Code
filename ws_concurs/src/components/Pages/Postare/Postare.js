@@ -11,6 +11,8 @@ import { v4 as uuid } from 'uuid';
 
 const Postare = () => {
   const [count, setCount] = useState(0);
+  const [urls, setUrls] = useState([]);
+  const [photos, setPhotos] = useState([]);
   const [photoPostC, setPhotoPostC] = useState();
   const [values, setValues] = useState({
     titlu:"",
