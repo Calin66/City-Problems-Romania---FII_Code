@@ -19,7 +19,6 @@ const Postare = () => {
     tproblema: "intrebari",
     pozeVideo: [],
     descriere: "",
-    grad: 0,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
@@ -39,6 +38,7 @@ const Postare = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("macar");
     setErrors(validateAP(values));
     setIsSubmitting(true);
   };
@@ -59,7 +59,6 @@ const Postare = () => {
                 titlu: values.titlu,
                 tproblema: values.tproblema,
                 descriere: values.descriere,
-                grad: values.grad,
                 owner: user.uid,
                 data: Timestamp.fromDate(new Date()),
               });
@@ -71,14 +70,15 @@ const Postare = () => {
                 );
                 const snapI = await uploadBytes(imageRef, imagine);
                 const iURL = await getDownloadURL(imageRef);
+                urls[i] = iURL;
                 console.log("updateDoc");
-                await updateDoc(infoRef, { [`img${i}`]: iURL });
               };
               const filesp = values.pozeVideo;
               for (let i = 0; i < filesp.length; i++) {
                 console.log(`try${i}`);
                 await forImage(values.pozeVideo[i], i);
               }
+              await updateDoc(infoRef, { urls: urls });
               alert("Postare Creata");
               navigate("/");
             } catch (error) {
@@ -146,7 +146,7 @@ const Postare = () => {
             <label>Categorie</label>
           </div> */}
 
-          <div className="cp-field">
+          {/* <div className="cp-field">
             <label>Grad urgenta</label>
             <input
               type="range"
@@ -158,7 +158,7 @@ const Postare = () => {
               onChange={handleChange}
             />
             {errors.grad && <p>{errors.grad}</p>}
-          </div>
+          </div> */}
           <button className="creeaza-postare" type="submit">
             Creeaza postare
           </button>

@@ -1,10 +1,18 @@
 .container-postari{
     display: grid;
     grid-template-columns: 2fr 1fr;
+    column-gap: 10%;
     width: 80%;
-    height: 100%;
     position: relative;
     top:250px;
+}
+.container-pg-postari{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10%;
+    row-gap: 40px;
+    height: fit-content;
+    /* background-color: red; */
 }
 .container-postare{
     width: 100%;
@@ -15,7 +23,18 @@
     border: 1px solid orange;
     grid-column: 1;
     margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    column-gap: 8%;
 }
 .container-postari h1{
     font-size: 26px;
+}
+.container-postare p{
+    font-size: 18px;
+}
+.container-postare img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }

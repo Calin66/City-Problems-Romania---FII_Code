@@ -1,0 +1,67 @@
+.gpt3blog-container_article {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #E45826;
+    
+    border-radius: 4%;
+    padding: 10px;
+    /* background: red; */
+}
+.afp-ct{
+    background-color: #282F44;
+    color:white;
+    padding: 8px 15px 0px 15px;
+    width: fit-content;
+    position: absolute;
+    z-index: 100;
+    
+}
+.cp-vote{
+    font-size: 24px;
+    margin-right: 5px;
+}
+.gpt3blog-container_article-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 2%;
+    overflow: hidden;
+}
+
+.gpt3blog-container_article-image img {
+    width: 100%;
+    height: 100%;
+}
+
+/* .gpt3__blog-container_article-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+} */
+
+.gpt3__blog-container_article-content h3 {
+    font-size: 26px;
+    line-height: 30px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+.gpt3__blog-container_article-content  {
+    position: relative;
+}
+
+
+.gpt3__blog-container_article-content h4{
+    font-size: 20px;
+}
+
+
+@media screen and (max-width: 550px) {
+    .gpt3blog-container_article-content h3 {
+        font-size: 18px;
+        line-height: 25p;
+    }
+}
