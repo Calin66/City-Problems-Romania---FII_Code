@@ -7,7 +7,7 @@ import { db, storage } from "../../../firebase";
 import Navbar from "../../NavBar/navBar";
 import "./Postare.css";
 import validateAP from "./validateAP";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 const Postare = () => {
   const [count, setCount] = useState(0);
@@ -15,12 +15,12 @@ const Postare = () => {
   const [photos, setPhotos] = useState([]);
   const [photoPostC, setPhotoPostC] = useState();
   const [values, setValues] = useState({
-    titlu:"",
-    tproblema:"intrebari",
-    pozeVideo:"",
-    descriere:"",
-    grad:0
-  })
+    titlu: "",
+    tproblema: "intrebari",
+    pozeVideo: [],
+    descriere: "",
+    grad: 0,
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
   let navigate = useNavigate();
@@ -34,7 +34,7 @@ const Postare = () => {
   };
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
-      setPhotoPostC(e.target.files);
+      setValues({ ...values, pozeVideo: e.target.files });
     }
   };
   const handleSubmit = (e) => {
@@ -44,42 +44,46 @@ const Postare = () => {
   };
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-        console.log("Is Submitting");
-        const auth = getAuth();
-        const user = auth.currentUser;
-        const unique_id = uuid();
-        
-        const doChestie = async() => {
-          if(user){
-            const addInfo = async () => {
-              const infoRef = doc(db, "posts", unique_id);
-              try {
-                console.log("Am inceput");
-                await setDoc(infoRef, {
-                  titlu:values.titlu,
-                  tproblema:values.tproblema,
-                  descriere:values.descriere,
-                  grad:values.grad,
-                  owner:user.uid,
-                  data:Timestamp.fromDate(new Date())
-                });
-                const forImage = async (imagine, i) => {
-                    const unique_id2 = uuid();
-                    const imageRef = ref(storage, `imagesPostari/${unique_id2}` + `${imagine.name}`);
-                    const snapI = await uploadBytes(imageRef, imagine);
-                    const iURL = await getDownloadURL(imageRef);
-                    await updateDoc(infoRef, { [`img${i}`]: iURL });
-                }
-                const filesp=values.pozeVideo;
-                for(let i=0; i<filesp.length; i++){
-                  console.log(`try${i}`);
-                  await forImage(values.pozeVideo[i], i);
-                }
-                alert("Postare Creata");
-                navigate("/");
-              } catch (error) {
-                alert(error);
+      console.log("Is Submitting");
+      const auth = getAuth();
+      const user = auth.currentUser;
+      const unique_id = uuid();
+
+      const doChestie = async () => {
+        if (user) {
+          const addInfo = async () => {
+            const infoRef = doc(db, "posts", unique_id);
+            try {
+              console.log("Am inceput");
+              await setDoc(infoRef, {
+                titlu: values.titlu,
+                tproblema: values.tproblema,
+                descriere: values.descriere,
+                grad: values.grad,
+                owner: user.uid,
+                data: Timestamp.fromDate(new Date()),
+              });
+              const forImage = async (imagine, i) => {
+                const unique_id2 = uuid();
+                const imageRef = ref(
+                  storage,
+                  `imagesPostari/${unique_id2}` + `${imagine.name}`
+                );
+                const snapI = await uploadBytes(imageRef, imagine);
+                const iURL = await getDownloadURL(imageRef);
+                console.log("updateDoc");
+                await updateDoc(infoRef, { [`img${i}`]: iURL });
+              };
+              const filesp = values.pozeVideo;
+              for (let i = 0; i < filesp.length; i++) {
+                console.log(`try${i}`);
+                await forImage(values.pozeVideo[i], i);
               }
+              alert("Postare Creata");
+              navigate("/");
+            } catch (error) {
+              alert(error);
+            }
           };
           await addInfo();
         }
