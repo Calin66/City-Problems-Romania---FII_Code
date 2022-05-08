@@ -61,6 +61,8 @@ const Postare = () => {
                 descriere: values.descriere,
                 owner: user.uid,
                 data: Timestamp.fromDate(new Date()),
+                upvotes: 0,
+                downvotes: 0,
               });
               const forImage = async (imagine, i) => {
                 const unique_id2 = uuid();

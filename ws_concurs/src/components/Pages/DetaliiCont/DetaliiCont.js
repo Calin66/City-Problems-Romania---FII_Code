@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./DetaliiCont.css";
 import { AiFillStar } from "react-icons/ai";
 import Navbar from "../../NavBar/navBar.js";
-import { db, upload } from "../../../firebase";
+import { db, upload, useAuth } from "../../../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { DetaliiContSwipe } from "./DetaliiContSwipe";
@@ -19,12 +19,7 @@ const DetaliiCont = () => {
   const [photoURL, setPhotoURL] = useState(
     "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
   );
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUserA(user);
-    }
-  });
+  const user = useAuth();
   const handleToggle = () => {
     setToggle(!toggle);
   };
@@ -46,17 +41,21 @@ const DetaliiCont = () => {
       }
     }
   };
+  useEffect(() => {
+    getUsers();
+  }, [user]);
   function handleChange(e) {
     if (e.target.files[0]) {
       setPhoto(e.target.files[0]);
     }
   }
   function handleClick() {
+    setLoading(true);
     upload(photo, userA, setLoading);
   }
   useEffect(() => {
-    getUsers();
-  }, [userA]);
+    setUserA(user);
+  }, [user]);
   return (
     <>
       {!toggle ? (
@@ -87,11 +86,7 @@ const DetaliiCont = () => {
                 <Link className="link" to="/securitate">
                   <li>Securitate</li>
                 </Link>
-                {userCData && (
-                  <LinkAdministrator
-                    number={userCData.status}
-                  />
-                )}
+                {userCData && <LinkAdministrator number={userCData.status} />}
               </ul>
             </div>
             <div id="opt-cont">
