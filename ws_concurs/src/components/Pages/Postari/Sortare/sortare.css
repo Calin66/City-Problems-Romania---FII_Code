@@ -1,11 +1,11 @@
 .cp-sortare{
     border: 1px solid #E45826;
-    padding: 40px;
+    padding: 9%;
 }
 .cp-sortare h4{
     cursor: pointer;
     transition: background 200ms ease;
-    padding: 10px;
+    padding: 3%;
 }
 .cp-sortare h4:hover{
     background-color:  #E45826;

@@ -7,9 +7,9 @@ import {
   AiFillLike,
   AiFillDislike,
 } from "react-icons/ai";
-import { BsBookmark, BsFillBookmarkFill } from 'react-icons/bs';
+import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../../../firebase";
+import { db, useAuth } from "../../../../firebase";
 const Article = ({
   imgUrl,
   date,
@@ -24,11 +24,16 @@ const Article = ({
   upvotedUser,
   downvotedUser,
   saved,
-  savedArray
+  savedArray,
+  // reset,
 }) => {
   // const [bgcolor, setBgcolor] = useState("black");
+  const [reset, setReset] = useState(false);
   const [upvotedL, setUpvotedL] = useState(upvoted);
   const [downvotedL, setDownvotedL] = useState(downvoted);
+  const user = useAuth();
+  const [userCData, setUserCData] = useState();
+
   const [upvotesL, setUpvotesL] = useState(upvotes);
   const [downvotesL, setDownvotesL] = useState(downvotes);
 
@@ -46,21 +51,60 @@ const Article = ({
   };
   useEffect(() => {
     getPostI();
-  }, []);
 
+    console.log("DDDDD");
+  }, []);
+  const getUserPostData = async () => {
+    if (userCData) {
+      const upvotedUser = userCData.upvoted;
+      const downvotedUser = userCData.downvoted;
+      // console.log(upvotedUser);
+      const liked = upvotedUser.includes(id);
+      const unliked = downvotedUser.includes(id);
+      setDownvotedL(unliked);
+      setUpvotedL(liked);
+    }
+  };
+  useEffect(() => {
+    getUserPostData();
+  }, [userCData]);
+  const getUserData = async () => {
+    if (user) {
+      const uid = user.uid;
+      const userCollectionRef = doc(db, "users", uid);
+      const docSnap = await getDoc(userCollectionRef);
+      if (docSnap.exists()) {
+        setUserCData(docSnap.data());
+        // if (userCData) {
+        //   const upvotedUser = userCData.upvoted;
+        //   const downvotedUser = userCData.downvoted;
+        //   // console.log(upvotedUser);
+        //   const liked = upvotedUser.includes(id);
+        //   const unliked = downvotedUser.includes(id);
+        //   setDownvotedL(unliked);
+        //   setUpvotedL(liked);
+        // }
+        // console.log(docSnap.data());
+      } else {
+        console.log("Error docSnap");
+      }
+    }
+  };
+  useEffect(() => {
+    getUserData();
+  }, [user]);
   const handleSave = async () => {
-    if(savedL){
+    if (savedL) {
       setSavedL(false);
       const indexSaved = savedArrayL.indexOf(id);
       savedArrayL.splice(indexSaved, 1);
-      await updateDoc(userRef, {saved: savedArrayL});
-    }
-    else{
+      await updateDoc(userRef, { saved: savedArrayL });
+    } else {
       setSavedL(true);
       savedArrayL.push(id);
-      await updateDoc(userRef, {saved: savedArrayL});
+      await updateDoc(userRef, { saved: savedArrayL });
     }
-  }
+  };
   const handleUpvote = async () => {
     console.log(id);
     if (upvotedL) {
@@ -84,7 +128,7 @@ const Article = ({
       await updateDoc(userRef, { upvoted: upvotedUser });
     } else {
       setUpvotedL(true);
-      console.log(upvotedUser);
+      // console.log(upvotedUser);
       upvotedUser.push(id);
 
       await updateDoc(infoRef, { upvotes: upvotesL + 1 });
@@ -93,21 +137,20 @@ const Article = ({
     }
   };
   const handleDownvote = async () => {
-    if(downvotedL){
+    if (downvotedL) {
       setDownvotedL(false);
       const indexDownvoted = downvotedUser.indexOf(id);
       const updateDownvoted = downvotedUser.splice(indexDownvoted, 1);
-      await updateDoc(infoRef, { downvotes: downvotesL - 1});
+      await updateDoc(infoRef, { downvotes: downvotesL - 1 });
       setDownvotesL(downvotesL - 1);
       await updateDoc(userRef, { downvoted: downvotedUser });
-    }
-    else if (upvotedL) {
+    } else if (upvotedL) {
       setDownvotedL(true);
       setUpvotedL(false);
       const indexUpvoted = upvotedUser.indexOf(id);
       upvotedUser.splice(indexUpvoted, 1);
       await updateDoc(userRef, { upvoted: upvotedUser });
-      await updateDoc(infoRef, { upvotes: upvotesL - 1});
+      await updateDoc(infoRef, { upvotes: upvotesL - 1 });
       setUpvotesL(upvotesL - 1);
       await updateDoc(infoRef, { downvotes: downvotesL + 1 });
       setDownvotesL(downvotesL + 1);
@@ -115,7 +158,7 @@ const Article = ({
       await updateDoc(userRef, { downvoted: downvotedUser });
     } else {
       setDownvotedL(true);
-      console.log(downvotedUser);
+      // console.log(downvotedUser);
       downvotedUser.push(id);
 
       await updateDoc(infoRef, { downvotes: downvotesL + 1 });
@@ -123,14 +166,23 @@ const Article = ({
       await updateDoc(userRef, { downvoted: downvotedUser });
     }
   };
+  // if (!reset) {
+  //   // setUpvotedL(upvoted);
+  //   // setDownvotedL(downvoted);
+  //   console.log(`upvotedL: ${upvotedL}`);
+  //   console.log(`downvotedL:${downvotedL}`);
+  // }
   return (
     <div className="gpt3blog-container_article">
       <div style={{ position: "relative" }}>
         <div className="afp-ct">
           <h4>{categorie}</h4>
         </div>
-        {!savedL ? <BsBookmark className="cp-bookmark" onClick={handleSave}/> : <BsFillBookmarkFill className="cp-bookmark" onClick={handleSave}/>}
-        
+        {!savedL ? (
+          <BsBookmark className="cp-bookmark" onClick={handleSave} />
+        ) : (
+          <BsFillBookmarkFill className="cp-bookmark" onClick={handleSave} />
+        )}
       </div>
       <div className="gpt3blog-container_article-image">
         <img src={imgUrl} alt="blog_image" />
@@ -143,19 +195,30 @@ const Article = ({
         <div
           style={{
             display: "flex",
-            width: "100%",
+            width: "90%",
             justifyContent: "space-between",
+            position: "absolute",
+            bottom: "10px",
+            left: "20px",
           }}
         >
           <p className="cp-vezipos">Vezi postare</p>
           <div
             style={{
               display: "flex",
-              alignItems: "flex-start"
+              alignItems: "flex-start",
             }}
           >
-            {!upvotedL ? <AiOutlineLike className="cp-vote" onClick={handleUpvote}/> : <AiFillLike  className="cp-vote" onClick={handleUpvote}/>}
-            {!downvotedL ? <AiOutlineDislike className="cp-vote" onClick={handleDownvote}/>: <AiFillDislike className="cp-vote" onClick={handleDownvote}/>}
+            {!upvotedL ? (
+              <AiOutlineLike className="cp-vote" onClick={handleUpvote} />
+            ) : (
+              <AiFillLike className="cp-vote" onClick={handleUpvote} />
+            )}
+            {!downvotedL ? (
+              <AiOutlineDislike className="cp-vote" onClick={handleDownvote} />
+            ) : (
+              <AiFillDislike className="cp-vote" onClick={handleDownvote} />
+            )}
           </div>
         </div>
       </div>

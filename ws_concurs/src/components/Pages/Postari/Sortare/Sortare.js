@@ -8,12 +8,12 @@ const Sortare = ({ handleSortareData, handleSortareVoturi, handleFilterInt, hand
       <div className="cp-sortare-field">
         <h4 onClick={handleSortareData}>Data adaugarii</h4>
         <AiOutlineArrowUp className="cp-sortare-arr" />
-        <AiOutlineArrowDown className="cp-sortare-arr" />
+        {/* <AiOutlineArrowDown className="cp-sortare-arr" /> */}
       </div>
       <div className="cp-sortare-field">
         <h4 onClick={handleSortareVoturi}>Numarul de voturi</h4>
         <AiOutlineArrowUp className="cp-sortare-arr" />
-        <AiOutlineArrowDown className="cp-sortare-arr" />
+        {/* <AiOutlineArrowDown className="cp-sortare-arr" /> */}
       </div>
       <div style={{ marginTop: "40px" }}>
         <h3>Filtrare</h3>

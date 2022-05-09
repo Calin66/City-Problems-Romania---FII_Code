@@ -1,17 +1,19 @@
 .container-postari{
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    column-gap: 10%;
-    width: 80%;
-    position: relative;
-    top:250px;
+    grid-template-columns: 2.5fr 1fr;
+    column-gap: 8%;
+    width: 85%;
+    /* position: relative; */
+    position: absolute;
+    top:275px;
 }
 .container-pg-postari{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 10%;
-    row-gap: 40px;
+    column-gap: 8%;
+    row-gap: 100px;
     height: fit-content;
+    margin-bottom: 200px;
     /* background-color: red; */
 }
 .container-postare{
@@ -37,4 +39,38 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+@media only screen and (max-width:1200px){
+    .container-postari{
+        grid-template-columns: 2fr 1fr;
+    }
+    .container-pg-postari{
+        grid-template-columns: 1fr;
+        row-gap: 80px;
+        /* background-color: red; */
+    }
+}
+@media only screen and (max-width:850px){
+    .container-postari{
+        display: grid;
+        /* grid-template-columns: 2.5fr 1fr; */
+        column-gap: 5%;
+        width: 90%;
+    }
+
+}
+@media only screen and (max-width:650px){
+    .container-postari{
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 2%;
+        width: 95%;
+        
+    }
+}
+#sp-ss:hover{
+    color:#E45826;
+}
+#sp-ss:hover > #ssp-bars{
+    color:#E45826;
 }
