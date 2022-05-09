@@ -60,6 +60,9 @@ const useForm = (validate) => {
             judet: values.judet,
             localitate: values.localitate,
             status: "user",
+            upvoted:[],
+            downvoted:[],
+            saved:[]
           });
           const displayName = values.username;
           updateProfile(user, { displayName });

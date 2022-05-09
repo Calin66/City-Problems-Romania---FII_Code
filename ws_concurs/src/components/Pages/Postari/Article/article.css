@@ -23,11 +23,11 @@
     font-size: 28px;
     margin-left: 6px;
     cursor: pointer;
-    color:#282F44;
+    color:#E45826;
 
 }
 .cp-bookmark{
-    color:#282F44;
+    color:#E45826;
     z-index: 200;
     margin-left: 40px;
     cursor: pointer;
@@ -37,8 +37,8 @@
     font-size: 28px;
 }
 .cp-vezipos{
-    border-bottom: 1px solid #282F44;
-    color:#282F44;
+    border-bottom: 1px solid #E45826;
+    /* color:#E45826; */
     padding: 5px 10px;
     cursor: pointer;
     transition:background 300ms ease;
@@ -48,7 +48,7 @@
 }
 .cp-vezipos:hover{
     color:white;
-    background-color: #282F44;
+    background-color:#E45826;
 }
 .gpt3blog-container_article-image {
     width: 100%;
