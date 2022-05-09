@@ -4,6 +4,8 @@ import {
   AiOutlineLike,
   AiOutlineDislike,
   AiOutlineHeart,
+  AiFillLike,
+  AiFillDislike,
 } from "react-icons/ai";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../firebase";
@@ -21,7 +23,7 @@ const Article = ({
   upvotedUser,
   downvotedUser,
 }) => {
-  const [bgcolor, setBgcolor] = useState("black");
+  // const [bgcolor, setBgcolor] = useState("black");
   const [upvotedL, setUpvotedL] = useState(upvoted);
   const [downvotedL, setDownvotedL] = useState(downvoted);
   const [upvotesL, setUpvotesL] = useState(upvotes);
@@ -53,7 +55,8 @@ const Article = ({
       await updateDoc(userRef, { downvoted: downvotedUser });
       await updateDoc(infoRef, { upvotes: upvotesL + 1 });
       setUpvotesL(upvotesL + 1);
-      await updateDoc(infoRef, { downvotes: downvotes - 1 });
+      await updateDoc(infoRef, { downvotes: downvotesL - 1 });
+      setDownvotesL(downvotesL - 1);
       const updateUpvoted = upvotedUser.push(id);
       await updateDoc(userRef, { upvoted: upvotedUser });
       setUpvotedL(true);
@@ -68,7 +71,37 @@ const Article = ({
       setUpvotedL(true);
     }
   };
-  const handleDownvote = async () => {};
+  const handleDownvote = async () => {
+    if(downvotedL){
+      const indexDownvoted = downvotedUser.indexOf(id);
+      const updateDownvoted = downvotedUser.splice(indexDownvoted, 1);
+      await updateDoc(infoRef, { downvotes: downvotesL - 1});
+      setDownvotesL(downvotesL - 1);
+      await updateDoc(userRef, { downvoted: downvotedUser });
+      setDownvotedL(false);
+    }
+    else if (upvotedL) {
+      const indexUpvoted = upvotedUser.indexOf(id);
+      upvotedUser.splice(indexUpvoted, 1);
+      await updateDoc(userRef, { upvoted: upvotedUser });
+      await updateDoc(infoRef, { upvotes: upvotesL - 1});
+      setUpvotesL(upvotesL - 1);
+      await updateDoc(infoRef, { downvotes: downvotesL + 1 });
+      setDownvotesL(downvotesL + 1);
+      const updateDownvoted = downvotedUser.push(id);
+      await updateDoc(userRef, { downvoted: downvotedUser });
+      setDownvotedL(true);
+      setUpvotedL(false);
+    } else {
+      console.log(downvotedUser);
+      downvotedUser.push(id);
+
+      await updateDoc(infoRef, { downvotes: downvotesL + 1 });
+      setDownvotesL(downvotesL + 1);
+      await updateDoc(userRef, { downvoted: downvotedUser });
+      setDownvotedL(true);
+    }
+  };
   return (
     <div className="gpt3blog-container_article">
       <div style={{ position: "relative" }}>
@@ -96,12 +129,11 @@ const Article = ({
           <div
             style={{
               display: "flex",
-              alignItems: "flex-start",
-              backgroundColor: bgcolor,
+              alignItems: "flex-start"
             }}
           >
-            <AiOutlineLike id="cp-vote" onClick={handleUpvote} />
-            <AiOutlineDislike id="cp-vote" onClick={handleDownvote} />
+            {!upvotedL ? <AiOutlineLike className="cp-vote" onClick={handleUpvote}/> : <AiFillLike  className="cp-vote" onClick={handleUpvote}/>}
+            {!downvotedL ? <AiOutlineDislike className="cp-vote" onClick={handleDownvote}/>: <AiFillDislike className="cp-vote" onClick={handleDownvote}/>}
           </div>
         </div>
       </div>
