@@ -19,14 +19,14 @@
     z-index: 100;
     
 }
-#cp-vote{
+.cp-vote{
     font-size: 28px;
     margin-left: 6px;
     cursor: pointer;
     color:#282F44;
 
 }
-#cp-bookmark{
+.cp-bookmark{
     color:#282F44;
     z-index: 200;
     margin-left: 40px;
