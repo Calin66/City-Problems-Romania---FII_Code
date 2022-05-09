@@ -62,6 +62,7 @@ const Article = ({
     }
   }
   const handleUpvote = async () => {
+    console.log(id);
     if (upvotedL) {
       setUpvotedL(false);
       const indexUpvoted = upvotedUser.indexOf(id);

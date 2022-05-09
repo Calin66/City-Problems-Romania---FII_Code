@@ -35,35 +35,50 @@ const Postari = () => {
     if (!intCrescator) {
         const sortedPosts = posts.filter(post=> post.tproblema==="intrebari");
         setPostsL(sortedPosts);
-        console.log(sortedPosts);
+        // console.log(sortedPosts);
         // setPostsCollectionRef(collection(db, "posts"), where("tproblema", "==", "intrebari"))
       } else if (intCrescator) {
         // setPostsCollectionRef(collection(db, "posts"))
         setPostsL(posts);
       }
       setIntCrescator(!intCrescator);
+      setPropCrescator(false);
+      setProbCrescator(false);
+      setLikeCrescator(false);
+      setBookCrescator(false);
   } 
   const handleFilterProp = () => {
     if (!propCrescator) {
         const sortedPosts = posts.filter(post=> post.tproblema==="propuneri");
         setPostsL(sortedPosts);
-        console.log(sortedPosts);
+        // console.log(sortedPosts);
       } else if (propCrescator) {
 
         setPostsL(posts);
       }
       setPropCrescator(!propCrescator);
+      setProbCrescator(false);
+      setLikeCrescator(false);
+      setBookCrescator(false);
+      setIntCrescator(false);
+
+
   }
   const handleFilterProb = () => {
     if (!probCrescator) {
         const sortedPosts = posts.filter(post=> post.tproblema==="probleme");
         setPostsL(sortedPosts);
-        console.log(sortedPosts);
+        // console.log(sortedPosts);
       } else if (probCrescator) {
 
         setPostsL(posts);
       }
       setProbCrescator(!probCrescator);
+      setLikeCrescator(false);
+      setBookCrescator(false);
+      setIntCrescator(false);
+      setPropCrescator(false);
+
   }
   const handleFilterLike = () => {
     if (!likeCrescator) {
@@ -73,12 +88,16 @@ const Postari = () => {
             return liked;
         })
         setPostsL(sortedPosts);
-        console.log(sortedPosts);
+        // console.log(sortedPosts);
       } else if (likeCrescator) {
 
         setPostsL(posts);
       }
       setLikeCrescator(!likeCrescator);
+      setProbCrescator(false);
+      setBookCrescator(false);
+      setIntCrescator(false);
+      setPropCrescator(false);
   }
   const handleFilterBook = () => {
     if (!bookCrescator) {
@@ -88,11 +107,15 @@ const Postari = () => {
             return bookd;
         })
         setPostsL(sortedPosts);
-        console.log(sortedPosts);
+        // console.log(sortedPosts);
       } else if (bookCrescator) {
         setPostsL(posts);
       }
       setBookCrescator(!bookCrescator);
+      setLikeCrescator(false);
+      setProbCrescator(false);
+      setIntCrescator(false);
+      setPropCrescator(false);
   }
 
 
@@ -105,7 +128,7 @@ const Postari = () => {
         return b.data.seconds - a.data.seconds;
       });
       setPostsL(sortedPosts);
-      console.log(sortedPosts);
+    //   console.log(sortedPosts);
     } else if (!dataCrescator) {
       const sortedPosts = postsL.sort((a, b) => {
         return a.data.seconds - b.data.seconds;
@@ -125,7 +148,7 @@ const Postari = () => {
         return a.upvotes - a.downvotes - b.upvotes - b.downvotes;
       });
       setPostsL(sortedPosts);
-      console.log(sortedPosts);
+    //   console.log(sortedPosts);
     }
     setVoturiCrescator(!voturiCrescator);
 
@@ -151,18 +174,13 @@ const Postari = () => {
   }, [user]);
   //UserData
 
+  
   useEffect(() => {
     const getPosts = async () => {
     //   const data = await getDocs(postsCollectionRef);
-      const unsubscribe = onSnapshot(postsCollectionRef, (querySnapshot) => {
-        const postsH = [];
-        querySnapshot.forEach((doc) => {
-            postsH.push({...doc.data(), id:doc.id});
-        });
-        console.log(postsH);
-        setPosts(postsH);
-        setPostsL(postsH);
-      });
+        const data = await getDocs(postsCollectionRef);
+        setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        setPostsL(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getPosts();
   }, []);
@@ -176,7 +194,7 @@ const Postari = () => {
         <div className="container-pg-postari">
           {(postsL && userCData) &&
             postsL.map((post) => {
-            console.log(post.id);
+            console.log(`postID: ${post.id}`);
               const date = post.data.seconds * 1000;
               const finalDate = new Date(date);
               const upvotedUser = userCData.upvoted;
@@ -187,7 +205,7 @@ const Postari = () => {
               
               const savedArray = userCData.saved;
               const isSaved = savedArray.includes(post.id);
-            //   console.log(isSaved);
+              // console.log(isSaved);
               // console.log(finalDate.toLocaleString());
               return (
                 <Article
@@ -208,6 +226,7 @@ const Postari = () => {
                 />
               );
             })}
+            {console.log("DX")}
         </div>
         <div>
           <Sortare

@@ -43,7 +43,7 @@ const DetaliiCont = () => {
   };
   useEffect(() => {
     getUsers();
-  }, [user]);
+  }, [userA]);
   function handleChange(e) {
     if (e.target.files[0]) {
       setPhoto(e.target.files[0]);
