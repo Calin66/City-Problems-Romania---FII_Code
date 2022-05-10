@@ -202,7 +202,7 @@ const Article = ({
             left: "20px",
           }}
         >
-          <Link to="/vezipostare" state={{id, userid, upvoted, downvoted, upvotes, downvotes, saved, savedArray, handleDownvote, handleUpvote, handleSave}} style={{textDecoration:"none", color:"black"}}><p className="cp-vezipos">Vezi postare</p></Link>
+          <Link to="/vezipostare" state={{id, userid}} style={{textDecoration:"none", color:"black"}}><p className="cp-vezipos">Vezi postare</p></Link>
           <div
             style={{
               display: "flex",

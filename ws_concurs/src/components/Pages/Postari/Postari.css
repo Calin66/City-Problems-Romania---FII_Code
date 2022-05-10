@@ -4,8 +4,9 @@
     column-gap: 8%;
     width: 85%;
     /* position: relative; */
-    position: absolute;
+    position: relative;
     top:275px;
+    /* background-color: red; */
 }
 .container-pg-postari{
     display: grid;

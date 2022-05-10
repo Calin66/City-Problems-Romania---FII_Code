@@ -10,13 +10,12 @@ import {
 import React, { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { db, useAuth } from "../../../firebase";
-import Footer from "../../Footer/Footer";
 import Navbar from "../../NavBar/navBar";
 import Article from "./Article/Article";
 import "./Postari.css";
 import Sortare from "./Sortare/Sortare";
 import { SortareSwipe } from "./Sortare/sortareSwipe";
-
+import Footer from "../../containers/footer/Footer";
 const Postari = () => {
   const [postsCollectionRef, setPostsCollectionRef] = useState(
     collection(db, "posts")
@@ -302,9 +301,10 @@ const Postari = () => {
               position: "absolute",
               bottom: "1%",
             }}
-          >
+            >
             <h1>Footer</h1>
           </div> */}
+          {/* <Footer /> */}
         </>
       )}
     </>
