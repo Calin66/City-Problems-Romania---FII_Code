@@ -10,6 +10,7 @@ import {
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, useAuth } from "../../../../firebase";
+import { Link } from "react-router-dom";
 const Article = ({
   imgUrl,
   date,
@@ -202,7 +203,7 @@ const Article = ({
             left: "20px",
           }}
         >
-          <p className="cp-vezipos">Vezi postare</p>
+          <Link to="/vezipostare" state={{id, userid}} style={{textDecoration:"none", color:"black"}}><p className="cp-vezipos">Vezi postare</p></Link>
           <div
             style={{
               display: "flex",

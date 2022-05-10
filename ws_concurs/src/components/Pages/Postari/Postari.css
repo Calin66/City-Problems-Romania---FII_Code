@@ -40,6 +40,15 @@
     width: 100%;
     object-fit: cover;
 }
+#sp-ss{
+    display: none !important;
+    /* color:red !important; */
+    position: absolute;
+    top: 200px;
+    left: 20%;
+    
+    cursor: pointer;
+}
 @media only screen and (max-width:1200px){
     .container-postari{
         grid-template-columns: 2fr 1fr;
@@ -57,6 +66,7 @@
         column-gap: 5%;
         width: 90%;
     }
+    
 
 }
 @media only screen and (max-width:650px){
@@ -66,6 +76,12 @@
         column-gap: 2%;
         width: 95%;
         
+    }
+    #sp-ss{
+        display: block !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
     }
 }
 #sp-ss:hover{

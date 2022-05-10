@@ -20,7 +20,7 @@ import { SortareSwipe } from "./Sortare/sortareSwipe";
 const Postari = () => {
   const [postsCollectionRef, setPostsCollectionRef] = useState(
     collection(db, "posts")
-  );
+  );  
   const [slide, setSlide] = useState(false);
   const user = useAuth();
 
@@ -213,16 +213,7 @@ const Postari = () => {
       ) : (
         <>
           <div
-            id="sp-ss"
-            style={{
-              position: "absolute",
-              top: "200px",
-              left: "6%",
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
+            className="sp-ss"
             onClick={handleToggle}
           >
             <h2>Sortare + filtrare</h2>

@@ -13,6 +13,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Postari from "./components/Pages/Postari/Postari";
+import VeziPostare from "./components/Pages/Postari/VeziPostare/VeziPostare";
 function App() {
   const [userCData, setUserCData] = useState();
   const [userA, setUserA] = useState();
@@ -43,6 +44,7 @@ function App() {
         <Route path="/signup" element={<Form />} />
         <Route path="/login" element={<FormLogin />} />
         <Route path="/postari" element={<Postari/>} />
+        <Route path="/vezipostare" element={<VeziPostare/>} />
         <Route element={<ProtectedRoutes />}>
           <Route
             path="/"
