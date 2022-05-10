@@ -1,0 +1,15 @@
+.container-vp{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+    height: 90vh;
+    /* background-color: red; */
+    position: absolute;
+    left:5%;
+    margin-top:10vh;
+}
+.detalii-vp{
+    position: absolute;
+    top:17vh;
+    left:56%;
+}

@@ -114,7 +114,7 @@ const Article = ({
       const updateUpvoted = upvotedUser.splice(indexUpvoted, 1);
       await updateDoc(infoRef, { upvotes: upvotesL - 1 });
       setUpvotesL(upvotesL - 1);
-      await updateDoc(userRef, { upvoted: upvotedUser });
+      await updateDoc(userRef, { upvoted: userCData.upvoted });
     } else if (downvotedL) {
       setUpvotedL(true);
       setDownvotedL(false);
@@ -131,7 +131,6 @@ const Article = ({
       setUpvotedL(true);
       // console.log(upvotedUser);
       upvotedUser.push(id);
-
       await updateDoc(infoRef, { upvotes: upvotesL + 1 });
       setUpvotesL(upvotesL + 1);
       await updateDoc(userRef, { upvoted: upvotedUser });
@@ -203,7 +202,7 @@ const Article = ({
             left: "20px",
           }}
         >
-          <Link to="/vezipostare" state={{id, userid}} style={{textDecoration:"none", color:"black"}}><p className="cp-vezipos">Vezi postare</p></Link>
+          <Link to="/vezipostare" state={{id, userid, upvoted, downvoted, upvotes, downvotes, saved, savedArray, handleDownvote, handleUpvote, handleSave}} style={{textDecoration:"none", color:"black"}}><p className="cp-vezipos">Vezi postare</p></Link>
           <div
             style={{
               display: "flex",
