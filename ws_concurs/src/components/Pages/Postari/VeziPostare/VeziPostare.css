@@ -18,3 +18,15 @@
     top:65vh;
     left:57%;
 }
+.vp-vote, .vp-bookmark{
+    color:#E45826;
+    font-size: 30px;
+    margin-left: 10%;
+    position: relative;
+    bottom:0.6vh;
+    cursor: pointer;
+}
+.vp-bookmark{
+    font-size: 28px;
+
+}
