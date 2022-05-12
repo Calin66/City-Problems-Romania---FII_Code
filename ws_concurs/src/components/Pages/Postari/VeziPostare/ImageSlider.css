@@ -45,3 +45,15 @@
     transition-duration: 1s;
     transform: scale(1.08);
   }
+  .slidev{
+
+  }
+  .video-vp{
+    width: 100%;
+    object-fit: cover;
+    height: 500px;
+    border-radius: 10px;
+    position: absolute;
+    left:0;
+    top: 22vh;
+  }

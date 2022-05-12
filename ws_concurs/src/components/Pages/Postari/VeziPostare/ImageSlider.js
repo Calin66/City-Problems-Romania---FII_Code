@@ -23,16 +23,33 @@ const ImageSlider = ({ slides }) => {
       <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
       <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
       {slides.map((slide, index) => {
-        return (
-          <div
+        if (slide.includes("mp4")){
+          return (
+            // <div
+            // className={index === current ? 'slide active' : 'slide'}
+            // key={index}
+            // >
+            <div key={index} className="slidev">
+            {index === current && (
+              <video controls width="250" className='video-vp'>
+                <source src={slide} type="video/mp4"></source>
+              </video>
+              )}
+            </div>
+          );
+        }
+        else {
+          return (
+            <div
             className={index === current ? 'slide active' : 'slide'}
             key={index}
-          >
+            >
             {index === current && (
               <img src={slide} className='image' />
-            )}
-          </div>
-        );
+              )}
+            </div>
+          );
+        }
       })}
     </section>
   );

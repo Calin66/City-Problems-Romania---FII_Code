@@ -14,6 +14,7 @@ import { db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Postari from "./components/Pages/Postari/Postari";
 import VeziPostare from "./components/Pages/Postari/VeziPostare/VeziPostare";
+import Favorite from "./components/Pages/Favorite/Favorite";
 function App() {
   const [userCData, setUserCData] = useState();
   const [userA, setUserA] = useState();
@@ -56,6 +57,7 @@ function App() {
               </div>
             }
           />
+          <Route path="/favorite" element={<Favorite />} />
           <Route path="/creeazapostare" element={<Postare />} />
           <Route path="/detaliicont" element={<DetaliiCont />} />
           <Route path="*" element={<ErorrPage />} />
