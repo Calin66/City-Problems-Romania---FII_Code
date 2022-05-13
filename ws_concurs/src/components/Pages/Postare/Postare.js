@@ -60,6 +60,7 @@ const Postare = () => {
                 tproblema: values.tproblema,
                 descriere: values.descriere,
                 owner: user.uid,
+                status: "trimis",
                 ownerName:user.displayName,
                 data: Timestamp.fromDate(new Date()),
                 upvotes: 0,

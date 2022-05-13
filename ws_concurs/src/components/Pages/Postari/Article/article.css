@@ -19,6 +19,21 @@
     z-index: 100;
     
 }
+.afp-status{
+    display: flex;
+    align-items: center;
+    background-color: orange;
+    color:white;
+    padding: 8px 15px 0px 15px;
+    width: fit-content;
+    position: absolute;
+    right:0;
+    border-radius: 0 0 0 20px;
+    z-index: 100;
+}
+.afp-status h4{
+    margin-left: 10%;
+}
 .cp-vote{
     font-size: 28px;
     margin-left: 6px;
@@ -42,9 +57,8 @@
     padding: 5px 10px;
     cursor: pointer;
     transition:background 300ms ease;
-    transition:color 300ms ease;
-    
-
+    /* transition:color 300ms ease; */
+    font-size: 20px;
 }
 .cp-vezipos:hover{
     color:white;

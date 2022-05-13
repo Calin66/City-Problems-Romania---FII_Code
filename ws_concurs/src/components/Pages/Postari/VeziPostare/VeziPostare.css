@@ -30,3 +30,18 @@
     font-size: 28px;
 
 }
+.vpc-status{
+    position: absolute;
+    top:65vh;
+    right:10%;
+}
+.vp-status{
+    display: flex;
+    align-items: center;
+}
+#statusL{
+    background-color: orange;
+    color: white;
+    padding: 5px 10px;
+    margin-left: 10px;
+}

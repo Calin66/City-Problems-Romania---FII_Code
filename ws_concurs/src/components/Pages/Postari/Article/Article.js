@@ -7,6 +7,7 @@ import {
   AiFillLike,
   AiFillDislike,
 } from "react-icons/ai";
+import {BsClockHistory} from 'react-icons/bs';
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, useAuth } from "../../../../firebase";
@@ -26,6 +27,7 @@ const Article = ({
   downvotedUser,
   saved,
   savedArray,
+  status,
   // reset,
 }) => {
   // const [bgcolor, setBgcolor] = useState("black");
@@ -177,6 +179,10 @@ const Article = ({
       <div style={{ position: "relative" }}>
         <div className="afp-ct">
           <h4>{categorie}</h4>
+        </div>
+        <div className="afp-status">
+          <BsClockHistory size="28px" style={{position:"relative", bottom:"3px"}}/>
+          <h4>{status}</h4>
         </div>
         {!savedL ? (
           <BsBookmark className="cp-bookmark" onClick={handleSave} />

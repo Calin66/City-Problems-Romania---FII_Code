@@ -6,7 +6,7 @@ import {
   AiOutlineDislike,
   AiOutlineLike,
 } from "react-icons/ai";
-import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
+import { BsBookmark, BsFillBookmarkFill, BsClockHistory } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import { db, useAuth } from "../../../../firebase";
 import Navbar from "../../../NavBar/navBar";
@@ -19,6 +19,9 @@ const VeziPostare = () => {
   const user = useAuth();
 
   //aa
+
+  const [statusL, setStatusL] = useState();
+
   const [upvotedL, setUpvotedL] = useState();
   const [upvotesL, setUpvotesL] = useState();
 
@@ -44,9 +47,11 @@ const VeziPostare = () => {
 
         const upvotedUser = docSnap.data().upvoted;
         const downvotedUser = docSnap.data().downvoted;
+        const savedUser = docSnap.data().saved;
 
         setUpvotedL(upvotedUser.includes(id));
         setDownvotedL(downvotedUser.includes(id));
+        setSavedL(savedUser.includes(id));
         // console.log(`up ${upvotedL} down ${downvotedL}`);
       } else {
         console.log("Error docSnap");
@@ -65,6 +70,7 @@ const VeziPostare = () => {
         setPost(data.data());
         setUpvotesL(data.data().upvotes);
         setDownvotesL(data.data().downvotes);
+        setStatusL(data.data().status);
       } else {
         console.log("Error data");
       }
@@ -164,6 +170,12 @@ const VeziPostare = () => {
       }
     }
   };
+  const handleSubmit = (e) => {
+    alert(submitted);
+  }
+  const handleChange = (e) => {
+    setStatusL(e.target.value);
+  }
 
   return (
     <>
@@ -181,7 +193,7 @@ const VeziPostare = () => {
                     backgroundColor: "#E45826",
                     color: "white",
                     marginLeft: "15px",
-                    padding: "0 10px",
+                    padding: "3px 12px 3px 12px",
                   }}
                 >
                   {post && post.tproblema}
@@ -248,6 +260,30 @@ const VeziPostare = () => {
                   <AiFillDislike className="vp-vote" onClick={handleDownvote} />
                 )}
               </div>
+            </div>
+            <div className="vpc-status">
+              <div className="vp-status"><BsClockHistory size="30px" style={{marginRight:"15px", position:"relative", bottom:"3px"}}/><h4>Status : </h4> <h4 id="statusL"> {statusL}</h4></div>
+              <form onSubmit={handleSubmit}>
+                <ul>
+                  <li>
+                    <input type="radio" id="f-option" value="vizionat" checked={statusL==="vizionat"} onChange={handleChange} />
+                    <label for="f-option">Vizionat</label>
+                    <div class="check"></div>
+                  </li>
+                  
+                  <li>
+                    <input type="radio" id="s-option" value="in lucru" />
+                    <label for="s-option">In lucru</label>
+                    <div class="check"><div class="inside"></div></div>
+                  </li>
+                  <li>
+                    <input type="radio" id="t-option" value="selector" />
+                    <label for="t-option">Rezolvat</label>
+                    <div class="check"><div class="inside"></div></div>
+                  </li>
+                  
+                </ul >
+              </form>
             </div>
           </div>
         </>

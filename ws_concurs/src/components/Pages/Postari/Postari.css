@@ -5,12 +5,13 @@
     width: 85%;
     /* position: relative; */
     position: relative;
-    top:275px;
+    top:300px;
     /* background-color: red; */
 }
 .container-pg-postari{
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-column: 1;
     column-gap: 8%;
     row-gap: 100px;
     height: fit-content;
