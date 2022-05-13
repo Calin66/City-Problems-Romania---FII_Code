@@ -190,7 +190,8 @@ const Article = ({
       <div className="gpt3__blog-container_article-content">
         <div>
           <p>{date}</p>
-          <h3>{titlu}</h3>
+          <Link to="/vezipostare" state={{id, userid}} style={{textDecoration:"none", color:"black"}}><h3>{titlu}</h3></Link>
+
         </div>
         <div
           style={{

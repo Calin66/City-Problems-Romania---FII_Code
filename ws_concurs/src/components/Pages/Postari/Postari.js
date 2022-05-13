@@ -25,9 +25,10 @@ const Postari = () => {
 
   const [posts, setPosts] = useState([]);
   const [postsL, setPostsL] = useState([]);
+  const [postsLiked, setPostsLiked] = useState([]);
   const [userCData, setUserCData] = useState();
-  const [dataCrescator, setDataCrescator] = useState(false);
-  const [voturiCrescator, setVoturiCrescator] = useState(false);
+  const [dataCrescator, setDataCrescator] = useState(true);
+  const [voturiCrescator, setVoturiCrescator] = useState(true);
 
   //Filtrare
   const [intCrescator, setIntCrescator] = useState(false);
@@ -35,6 +36,9 @@ const Postari = () => {
   const [probCrescator, setProbCrescator] = useState(false);
   const [likeCrescator, setLikeCrescator] = useState(false);
   const [bookCrescator, setBookCrescator] = useState(false);
+
+  const [crescData, setCrescData] = useState(true);
+  const [crescNr, setCrescNr] = useState(true);
 
   const handleToggle = () => {
     setSlide(!slide);
@@ -148,6 +152,8 @@ const Postari = () => {
       setPostsL(sortedPosts);
     }
     setDataCrescator(!dataCrescator);
+    setVoturiCrescator(true);
+
   };
   const handleSortareVoturi = () => {
     setSlide(false);
@@ -164,6 +170,8 @@ const Postari = () => {
       //   console.log(sortedPosts);
     }
     setVoturiCrescator(!voturiCrescator);
+    setDataCrescator(true);
+
   };
   //Sortare
 
@@ -235,6 +243,56 @@ const Postari = () => {
             }}
           >
             <Navbar backgroundColor="black" />
+            {/* {!voturiCrescator && <div className="container-pg-postari">
+                {postsLiked &&
+                  userCData &&
+                  postsLiked.map((post) => {
+                    const upvotedUser = userCData.upvoted;
+                    const downvotedUser = userCData.downvoted;
+                    // console.log(upvotedUser);
+                    const liked = upvotedUser.includes(post.id);
+                    const unliked = downvotedUser.includes(post.id);
+                    if(liked){
+
+                      const date = post.data.seconds * 1000;
+                      const finalDate = new Date(date);
+                      // console.log("FRESH");
+                      // // console.log(`liked ${liked} unliked ${unliked}`);
+                      
+                      // console.log(
+                        //   `postID: ${post.id}, liked ${liked}, unliked ${unliked}`
+                        // );
+                        
+                    const savedArray = userCData.saved;
+                    const isSaved = savedArray.includes(post.id);
+                    // console.log(isSaved);
+                    // console.log(finalDate.toLocaleString());
+                    return (
+                      <Article
+                        key={post.id}
+                        imgUrl={post.urls[0]}
+                        date={finalDate.toLocaleString()}
+                        titlu={post.titlu}
+                        categorie={post.tproblema}
+                        id={post.id}
+                        upvoted={liked}
+                        downvoted={unliked}
+                        upvotes={post.upvotes}
+                        downvotes={post.downvotes}
+                        userid={user.uid}
+                        upvotedUser={userCData.upvoted}
+                        downvotedUser={userCData.downvoted}
+                        saved={isSaved}
+                        savedArray={savedArray}
+                        />
+                        );
+                      }
+                  })}
+              </div>
+          } */}
+            {!dataCrescator && <h2 style={{position:"absolute", top:"210px", left:"9%"}}>Cele mai noi</h2>}
+            {!voturiCrescator && <h2 style={{position:"absolute", top:"210px", left:"9%"}}>Cele mai populare</h2>}
+            {!voturiCrescator && }
             <div className="container-postari">
               <div className="container-pg-postari">
                 {postsL &&
@@ -253,7 +311,7 @@ const Postari = () => {
                     // console.log(
                     //   `postID: ${post.id}, liked ${liked}, unliked ${unliked}`
                     // );
-
+                    
                     const savedArray = userCData.saved;
                     const isSaved = savedArray.includes(post.id);
                     // console.log(isSaved);
@@ -282,6 +340,8 @@ const Postari = () => {
               </div>
               <div>
                 <Sortare
+                  crescData={dataCrescator}
+                  crescNr={voturiCrescator}
                   handleSortareData={handleSortareData}
                   handleSortareVoturi={handleSortareVoturi}
                   handleFilterInt={handleFilterInt}

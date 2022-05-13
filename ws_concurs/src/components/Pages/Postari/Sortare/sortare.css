@@ -1,6 +1,8 @@
 .cp-sortare{
     border: 1px solid #E45826;
     padding: 9%;
+    grid-column: 2;
+    grid-row: 1;
 }
 .cp-sortare h4{
     cursor: pointer;
