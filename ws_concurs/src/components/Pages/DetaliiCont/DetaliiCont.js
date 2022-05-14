@@ -115,6 +115,8 @@ const DetaliiCont = () => {
               <div className="optiune-cont">
                 <h1>Email</h1>
                 <p>{userA && userA.email}</p>
+                <h1>User ID</h1>
+                <p>{userA && userA.uid}</p>
                 <h1>Username</h1>
                 <p>{userA && userA.displayName}</p>
                 <div

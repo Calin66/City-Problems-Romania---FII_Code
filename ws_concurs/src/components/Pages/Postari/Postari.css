@@ -46,7 +46,7 @@
     display: none;
     /* color:red !important; */
     position: absolute;
-    top: 200px;
+    top: 210px;
     left: 20%;
     
     cursor: pointer;
@@ -66,6 +66,7 @@
         row-gap: 80px;
         /* background-color: red; */
     }
+    
 }
 @media only screen and (max-width:850px){
     .container-postari{
@@ -83,7 +84,6 @@
         grid-template-columns: 1fr;
         column-gap: 2%;
         width: 95%;
-        
     }
     .sp-ss{
         display: block !important;

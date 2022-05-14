@@ -2,20 +2,58 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 90%;
-    height: 90vh;
+    height: 850px;
     /* background-color: red; */
     position: absolute;
     left:5%;
-    margin-top:10vh;
+    margin-top:100px;
+}
+
+.status-postare{
+    width: 60%;
+    height: 30px;
+    border-radius: 2px;
+    background: linear-gradient(
+      90deg,
+      #F0A500 0%,
+      #E45826 100%
+    );
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    position: relative;
+    left:25%;
 }
 .detalii-vp{
     position: absolute;
-    top:17vh;
+    top:170px;
     left:56%;
 }
+@media only screen and (max-width:1300px){
+    .detalii-vp h1{
+        font-size: 32px;
+        /* top:800px;
+        left:20%; */
+    }
+    .detalii-vp h2{
+        font-weight: 400;
+    }
+    #tprob{
+        position: absolute;
+        top:4px;
+        margin-bottom: 50px;
+        right:110%;
+        font-size: 22px;
+    }
+    #vp-descriere{
+        margin-top: 70px !important;
+    }
+}
+
 #vp-likes{
     position: absolute;
-    top:65vh;
+    top:600px;
     left:57%;
 }
 .vp-vote, .vp-bookmark{
@@ -23,7 +61,7 @@
     font-size: 30px;
     margin-left: 10%;
     position: relative;
-    bottom:0.6vh;
+    bottom:5px;
     cursor: pointer;
 }
 .vp-bookmark{
@@ -32,8 +70,13 @@
 }
 .vpc-status{
     position: absolute;
-    top:65vh;
-    right:10%;
+    top:730px;
+    left:0%;
+    display: flex;
+    align-items: center;
+}
+.vpc-status form ul{
+    /* background-color: rebeccapurple; */
 }
 .vp-status{
     display: flex;
@@ -44,4 +87,35 @@
     color: white;
     padding: 5px 10px;
     margin-left: 10px;
+}
+@media only screen and (max-width:760px){
+    .container-vp{
+        grid-template-columns: 1fr;
+    }
+    .detalii-vp{
+        top:790px;
+        left:0;
+    }
+    .vpc-status{
+        top: 1350px;
+        display: block;
+        /* margin-bottom: 70px; */
+    }
+    #vp-likes{
+        top:710px;
+        left:0%;
+        display: flex;
+        width: 80%;
+    }
+    #vp-descriere{
+        /* position: relative;
+        top: 70px; */
+    }
+    #status-vp{
+        display: flex;
+    }
+    #status-vp li{
+        margin-left: 1px;
+    }
+
 }

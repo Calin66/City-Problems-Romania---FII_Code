@@ -21,6 +21,7 @@ const VeziPostare = () => {
   //aa
 
   const [statusL, setStatusL] = useState();
+  const [status, setStatus] = useState();
 
   const [upvotedL, setUpvotedL] = useState();
   const [upvotesL, setUpvotesL] = useState();
@@ -71,6 +72,7 @@ const VeziPostare = () => {
         setUpvotesL(data.data().upvotes);
         setDownvotesL(data.data().downvotes);
         setStatusL(data.data().status);
+        setStatus(data.data().status);
       } else {
         console.log("Error data");
       }
@@ -170,12 +172,15 @@ const VeziPostare = () => {
       }
     }
   };
-  const handleSubmit = (e) => {
-    alert(submitted);
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const infoRef = doc(db, "posts", id);
+    await updateDoc(infoRef, { status: statusL });
+    setStatus(statusL);
+  };
   const handleChange = (e) => {
     setStatusL(e.target.value);
-  }
+  };
 
   return (
     <>
@@ -189,6 +194,7 @@ const VeziPostare = () => {
               <div style={{ display: "flex", alignItems: "center" }}>
                 <h1>{post && post.titlu}</h1>
                 <h2
+                  id="tprob"
                   style={{
                     backgroundColor: "#E45826",
                     color: "white",
@@ -202,7 +208,10 @@ const VeziPostare = () => {
               <h2 style={{ textDecoration: "underline", fontSize: "25px" }}>
                 Autor: {post && post.ownerName}
               </h2>
-              <p style={{ fontSize: "24px", marginTop: "40px" }}>
+              <p
+                style={{ fontSize: "24px", marginTop: "40px" }}
+                id="vp-descriere"
+              >
                 {post && post.descriere}
               </p>
             </div>
@@ -211,7 +220,7 @@ const VeziPostare = () => {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  width: "200px",
+                  width: "70%",
                 }}
               >
                 <h4>Save</h4>
@@ -224,66 +233,106 @@ const VeziPostare = () => {
                   />
                 )}
               </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  width: "200px",
-                }}
-              >
-                <h4>Like</h4>
-                <h4 style={{ marginLeft: "15%" }}>{upvotesL && upvotesL}</h4>
-                {!upvotedL ? (
-                  <AiOutlineLike className="vp-vote" onClick={handleUpvote} />
-                ) : (
-                  <AiFillLike className="vp-vote" onClick={handleUpvote} />
-                )}
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  width: "200px",
-                }}
-              >
-                <h4>Dislike</h4>
-                <h4 style={{ marginLeft: "15%" }}>
-                  {downvotesL && downvotesL}
-                </h4>
-                {!downvotedL ? (
-                  <AiOutlineDislike
-                    className="vp-vote"
-                    onClick={handleDownvote}
-                  />
-                ) : (
-                  <AiFillDislike className="vp-vote" onClick={handleDownvote} />
-                )}
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "150px",
+                  }}
+                >
+                  <h4>Like</h4>
+                  <h4 style={{ marginLeft: "15%" }}>{upvotesL && upvotesL}</h4>
+                  {!upvotedL ? (
+                    <AiOutlineLike className="vp-vote" onClick={handleUpvote} />
+                  ) : (
+                    <AiFillLike className="vp-vote" onClick={handleUpvote} />
+                  )}
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "150px",
+                  }}
+                >
+                  <h4>Dislike</h4>
+                  <h4 style={{ marginLeft: "15%" }}>
+                    {downvotesL && downvotesL}
+                  </h4>
+                  {!downvotedL ? (
+                    <AiOutlineDislike
+                      className="vp-vote"
+                      onClick={handleDownvote}
+                    />
+                  ) : (
+                    <AiFillDislike
+                      className="vp-vote"
+                      onClick={handleDownvote}
+                    />
+                  )}
+                </div>
               </div>
             </div>
             <div className="vpc-status">
-              <div className="vp-status"><BsClockHistory size="30px" style={{marginRight:"15px", position:"relative", bottom:"3px"}}/><h4>Status : </h4> <h4 id="statusL"> {statusL}</h4></div>
-              <form onSubmit={handleSubmit}>
-                <ul>
-                  <li>
-                    <input type="radio" id="f-option" value="vizionat" checked={statusL==="vizionat"} onChange={handleChange} />
-                    <label for="f-option">Vizionat</label>
-                    <div class="check"></div>
-                  </li>
-                  
-                  <li>
-                    <input type="radio" id="s-option" value="in lucru" />
-                    <label for="s-option">In lucru</label>
-                    <div class="check"><div class="inside"></div></div>
-                  </li>
-                  <li>
-                    <input type="radio" id="t-option" value="selector" />
-                    <label for="t-option">Rezolvat</label>
-                    <div class="check"><div class="inside"></div></div>
-                  </li>
-                  
-                </ul >
-              </form>
+              <div className="vp-status">
+                <BsClockHistory
+                  size="30px"
+                  style={{
+                    marginRight: "15px",
+                    position: "relative",
+                    bottom: "3px",
+                  }}
+                />
+                <h4>Status : </h4> <h4 id="statusL"> {status}</h4>
+              </div>
+              {userCData && userCData.status == 1 && (
+                <form onSubmit={handleSubmit}>
+                  <ul id="status-vp">
+                    <li>
+                      <input
+                        type="radio"
+                        id="f-option"
+                        value="vizionat"
+                        checked={statusL === "vizionat"}
+                        onChange={handleChange}
+                      />
+                      <label for="f-option">Vizionat</label>
+                      <div class="check"></div>
+                    </li>
+
+                    <li>
+                      <input
+                        type="radio"
+                        id="s-option"
+                        value="in lucru"
+                        checked={statusL === "in lucru"}
+                        onChange={handleChange}
+                      />
+                      <label for="s-option">In lucru</label>
+                      <div class="check">
+                        <div class="inside"></div>
+                      </div>
+                    </li>
+                    <li>
+                      <input
+                        type="radio"
+                        id="t-option"
+                        value="rezolvat"
+                        checked={statusL === "rezolvat"}
+                        onChange={handleChange}
+                      />
+                      <label for="t-option">Rezolvat</label>
+                      <div class="check">
+                        <div class="inside"></div>
+                      </div>
+                    </li>
+                  </ul>
+                  <button className="status-postare" type="submit">
+                    Schimba status
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </>

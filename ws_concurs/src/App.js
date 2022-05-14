@@ -15,6 +15,7 @@ import { doc, getDoc } from "firebase/firestore";
 import Postari from "./components/Pages/Postari/Postari";
 import VeziPostare from "./components/Pages/Postari/VeziPostare/VeziPostare";
 import Favorite from "./components/Pages/Favorite/Favorite";
+import PostariLucru from "./components/Pages/Postari/PostariLucru/PostariLucru";
 function App() {
   const [userCData, setUserCData] = useState();
   const [userA, setUserA] = useState();
@@ -39,14 +40,15 @@ function App() {
   useEffect(() => {
     getUsers();
   }, [userA]);
-  
+
   return (
     <Router>
       <Routes>
         <Route path="/signup" element={<Form />} />
         <Route path="/login" element={<FormLogin />} />
-        <Route path="/postari" element={<Postari/>} />
-        <Route path="/vezipostare" element={<VeziPostare/>} />
+        <Route path="/postari" element={<Postari />} />
+        <Route path="/vezipostare" element={<VeziPostare />} />
+        <Route path="/postariinlucru" element={<PostariLucru />} />
         <Route element={<ProtectedRoutes />}>
           <Route
             path="/"
