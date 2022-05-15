@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import {
   AiFillDislike,
@@ -7,6 +7,7 @@ import {
   AiOutlineLike,
 } from "react-icons/ai";
 import { BsBookmark, BsFillBookmarkFill, BsClockHistory } from "react-icons/bs";
+import { FiDelete } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { db, useAuth } from "../../../../firebase";
 import Navbar from "../../../NavBar/navBar";
@@ -181,6 +182,10 @@ const VeziPostare = () => {
   const handleChange = (e) => {
     setStatusL(e.target.value);
   };
+  const handleDelete = async () => {
+    await deleteDoc(doc(db, "posts", id));
+    navigate("/postari");
+  };
 
   return (
     <>
@@ -273,6 +278,14 @@ const VeziPostare = () => {
                   )}
                 </div>
               </div>
+              {userCData && userCData.status === "moderator" && (
+                <h4
+                  style={{ color: "red", cursor: "pointer" }}
+                  onClick={handleDelete}
+                >
+                  Delete post X
+                </h4>
+              )}
             </div>
             <div className="vpc-status">
               <div className="vp-status">
@@ -286,7 +299,7 @@ const VeziPostare = () => {
                 />
                 <h4>Status : </h4> <h4 id="statusL"> {status}</h4>
               </div>
-              {userCData && userCData.status == 1 && (
+              {userCData && userCData.status === "admin" && (
                 <form onSubmit={handleSubmit}>
                   <ul id="status-vp">
                     <li>
