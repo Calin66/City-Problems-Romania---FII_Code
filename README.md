@@ -3,3 +3,4 @@ Noi pentru acest proiect am folosit -> Front-end React-html, css, js; -> Back-en
 -> File structure organizat, modular;
 -> Enviromental variables pentru api key, etc
 
+https://youtu.be/KVVbCWUMohA
