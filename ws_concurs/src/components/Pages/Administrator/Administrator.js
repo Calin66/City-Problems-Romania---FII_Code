@@ -9,6 +9,7 @@ const Administrator = () => {
   );
   const [userCData, setUserCData] = useState();
   const [userId, setUserId] = useState();
+  const [userIdA, setUserIdA] = useState();
   const user = useAuth();
 
   const getUserData = async () => {
@@ -30,17 +31,31 @@ const Administrator = () => {
   }, [user]);
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     try {
       const userCollectionRef = doc(db, "users", userId);
-      await updateDoc(userCollectionRef, { status: 1 });
+      await updateDoc(userCollectionRef, { status: "moderator" });
     } catch (e) {
       alert(e);
     }
+    window.location.reload(false);
     // alert(userId);
   };
   const handleChange = (e) => {
     setUserId(e.target.value);
+  };
+  const handleSubmitA = async (e) => {
+    e.preventDefault();
+    try {
+      const userCollectionRef = doc(db, "users", userIdA);
+      await updateDoc(userCollectionRef, { status: "admin" });
+    } catch (e) {
+      alert(e);
+    }
+    window.location.reload(false);
+  };
+  const handleChangeA = (e) => {
+    setUserIdA(e.target.value);
   };
 
   return (
@@ -77,7 +92,37 @@ const Administrator = () => {
           </form>
         </div>
       </div>
-      <div></div>
+      <div
+        style={{
+          position: "relative",
+          top: "250px",
+          left: "5%",
+          width: "90%",
+        }}
+      >
+        <h2 style={{ fontWeight: "400" }}>
+          Atribuire admini{" "}
+          {/* <span style={{ fontWeight: "500" }}>
+            {userCData && userCData.localitate}
+          </span> */}
+        </h2>
+        <div className="at-md-container">
+          <h4 style={{ color: "red" }}>
+            Adminul trebuie sa aiba cont deja creat pe platforma
+          </h4>
+          <form onSubmit={handleSubmitA} noValidate>
+            <input
+              placeholder="Introdu User ID"
+              onChange={handleChangeA}
+              value={userIdA}
+              className="at-md-input"
+            />
+            <button type="submit" className="at-md-submit">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

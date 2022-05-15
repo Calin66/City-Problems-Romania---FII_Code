@@ -63,7 +63,7 @@ function App() {
           <Route path="/creeazapostare" element={<Postare />} />
           <Route path="/detaliicont" element={<DetaliiCont />} />
           <Route path="*" element={<ErorrPage />} />
-          <Route path="/administrator1" element={<ProtectedRoutes2 />} />
+          <Route path="/administrator" element={<ProtectedRoutes2 />} />
         </Route>
       </Routes>
     </Router>

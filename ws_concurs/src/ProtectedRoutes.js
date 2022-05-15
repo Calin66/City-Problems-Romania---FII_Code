@@ -48,6 +48,6 @@ export const ProtectedRoutes2 = () => {
   useEffect(() => {
     getUsers();
   }, [userA]);
-  if (userCData?.status === 1) return <Administrator />;
+  if (userCData?.status === "admin") return <Administrator />;
   else return <DetaliiCont />;
 };
